@@ -1,28 +1,33 @@
 // import { useState } from "react";
 import React from "react";
 import "./App.css";
-import Header from "./components/Header";
-import TopPage from "./components/TopPage";
+// import Header from "./components/Header";
+// import TopPage from "./components/TopPage";
 import AboutUsPage from "./components/AboutUsPage";
-
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+import { MediaQueryProvider } from "./components/Provider/MediaQueryProvider";
+import MainComponent from "@/components/pages/MainComponent.tsx";
 
 function App() {
   // const [count, setCount] = useState(0);
 
   return (
-    <Router>
-      <div className="App">
-        <Header />
-
+    <>
+      <Router>
         <Routes>
-          <Route path="/" element={<TopPage />} />
+          <Route
+            path="/"
+            element={
+              <MediaQueryProvider>
+                <MainComponent />
+              </MediaQueryProvider>
+            }
+          />
           <Route path="/aboutus" element={<AboutUsPage />} />
-
-          {/* <HomePage /> */}
         </Routes>
-      </div>
-    </Router>
+      </Router>
+    </>
   );
 }
 

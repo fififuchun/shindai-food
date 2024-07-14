@@ -1,8 +1,8 @@
 import React from "react";
-import "./Header.css";
+import "./PcHeader.css";
 import { Link } from "react-router-dom";
 
-export default function Header() {
+export default function PcHeader() {
   return (
     <>
       <header className="Header">

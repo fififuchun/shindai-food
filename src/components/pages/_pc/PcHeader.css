@@ -2,9 +2,11 @@ div {
   width: 100%;
 }
 
+.Header {
+}
+
 header {
   display: flex;
-  justify-content: space-around;
   align-items: center;
   background-color: rgb(243, 243, 243);
   color: white;
@@ -16,49 +18,33 @@ header {
 }
 
 header .logo {
+  width: 70%; /* navの要素が増えたらここを調整 */
   font-size: 50px;
   color: #4caf50;
   font-weight: bold;
-  margin-left: 15%;
+  text-align: center;
 }
 
 nav {
-  width: 50%;
+  width: 30%; /* navの要素が増えたらここを調整 */
 }
 
 nav ul {
   margin: 0;
-  padding: 0;
+  display: flex;
+  justify-content: space-around;
 }
 
 nav ul li {
   list-style: none;
-  display: inline-block;
-  margin-right: 30px;
 }
 
 nav ul li a {
-  text-decoration: none;
   color: #000000;
-  font-size: 25px;
-  margin-right: 30px;
+  font-size: 20px;
   transition: all 0.2s;
 }
 
 nav ul li a :hover {
   color: white;
-}
-
-/* burger */
-
-.burger {
-  cursor: pointer;
-  display: none;
-}
-
-.burger div {
-  width: 25px;
-  height: 3px;
-  background-color: black;
-  margin: 5px;
 }
