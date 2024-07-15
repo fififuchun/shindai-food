@@ -5,6 +5,7 @@ import "./App.css";
 // import TopPage from "./components/TopPage";
 import AboutUsPage from "./components/AboutUsPage";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./input.css";
 
 import { MediaQueryProvider } from "./components/Provider/MediaQueryProvider";
 import MainComponent from "@/components/pages/MainComponent.tsx";

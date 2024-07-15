@@ -1,7 +1,11 @@
 import React from "react";
 
 const TbContents = () => {
-  return <div>TbContents</div>;
+  return (
+    <>
+      <div className="text-3xl text-red-500">TbContents</div>
+    </>
+  );
 };
 
 export default TbContents;

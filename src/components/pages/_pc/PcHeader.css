@@ -2,9 +2,6 @@ div {
   width: 100%;
 }
 
-.Header {
-}
-
 header {
   display: flex;
   align-items: center;

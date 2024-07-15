@@ -1,10 +1,12 @@
 import React from "react";
+import "./SpContents.css";
 
 const SpContents = () => {
   return (
     <>
-      <div>SpContents</div>
-      <p></p>
+      <div>
+        <p className="text-3xl text-red-500">SpContents</p>
+      </div>
     </>
   );
 };
