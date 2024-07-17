@@ -1,5 +1,5 @@
 import React from "react";
-import PcContents from "@/components/pages/_pc/PcContents";
+import PcComponent from "@/components/pages/_pc/PcComponent";
 import SpContents from "@/components/pages/_sp/SpContents";
 import TbContents from "@/components/pages/_tb/TbContents";
 import { useMediaQueryContext } from "@/components/Provider/MediaQueryProvider";
@@ -10,7 +10,7 @@ const MainComponent = () => {
   if (isMobileSite) {
     return <SpContents />;
   } else if (isPcSite) {
-    return <PcContents />;
+    return <PcComponent />;
   } else {
     return <TbContents />;
   }
