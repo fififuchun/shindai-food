@@ -1,29 +1,44 @@
 import React from "react";
 import "./PcHeader.css";
-import { BrowserRouter, Link } from "react-router-dom";
+// import { BrowserRouter, Link } from "react-router-dom";
+import logo from "@/assets/shindaifood_logo.png";
 
 export default function PcHeader() {
   return (
     <>
-      <BrowserRouter>
-        <header className="Header">
-          <div className="logo">シンダイフード</div>
+      {/* <BrowserRouter> */}
+      <header className="flex items-center bg-slate-100">
+        <div className="w-2/3">
+          <a href="/" className="flex justify-center">
+            <img src={logo} alt="" className="h-32 object-cover" />
+          </a>
+        </div>
 
-          <nav>
-            <ul>
-              <li>
-                {/* <a href="/">TOP</a> */}
-                <Link to="/">TOP</Link>
-              </li>
+        <nav className="w-1/3">
+          <ul className="flex justify-around">
+            <li>
+              <a
+                href="/"
+                className="text-slate-950 font-bold text-2xl transition hover:opacity-40"
+              >
+                TOP
+              </a>
+              {/* <Link to="/">TOP</Link> */}
+            </li>
 
-              <li>
-                {/* <a href="/aboutus">ABOUT US</a> */}
-                <Link to="/AboutUs">ABOUT US</Link>
-              </li>
-            </ul>
-          </nav>
-        </header>
-      </BrowserRouter>
+            <li>
+              <a
+                href="/aboutus"
+                className="text-slate-950 font-bold text-2xl transition hover:opacity-40"
+              >
+                ABOUT US
+              </a>
+              {/* <Link to="/AboutUs">ABOUT US</Link> */}
+            </li>
+          </ul>
+        </nav>
+      </header>
+      {/* </BrowserRouter> */}
     </>
   );
 }

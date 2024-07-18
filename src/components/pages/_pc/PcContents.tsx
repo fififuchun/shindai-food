@@ -7,10 +7,16 @@ import img1 from "@/assets/1.png";
 import walk from "@/assets/walkIcon.png";
 import cycle from "@/assets/cycleIcon.png";
 import star from "@/assets/star.png";
-// import greyStar from "@/assets/star_grey.png";
+import greyStar from "@/assets/star_grey.png";
 
 const PcContents = () => {
   const score = 4;
+
+  const style = {
+    width: 24,
+    marginLeft: 0,
+    // objecit: cover,
+  };
 
   return (
     <>
@@ -34,15 +40,13 @@ const PcContents = () => {
                     {(function () {
                       const list = [];
                       for (let i = 0; i < Math.floor(score); i++) {
-                        list.push(<img src={star} alt="" />);
+                        list.push(<img src={star} alt="" key={i} />);
                       }
-                      return (
-                        <li className="w-6 flex" key={rest.Name}>
-                          {list}
-                        </li>
-                      );
+                      return <li className="w-6 flex">{list}</li>;
                     })()}
-                    {/* <img src={star} alt="" className="w-6 ml-12" /> */}
+
+                    {/* <img src={greyStar} alt="" className="w-6 m-0 p-0" /> */}
+                    <img src={greyStar} alt="" style={style} />
                   </div>
 
                   <p className="text-black ml-8 p-0.5 text-left">
@@ -68,8 +72,14 @@ const PcContents = () => {
           ))}
         </div>
 
-        <div className="text-black bg-slate-300 w-1/3 h-lvh m-12 ">
-          <p>1</p>
+        <div className="text-black bg-slate-00 w-1/3 h-lvh m-12">
+          <p className="">sample</p>
+
+          <ul className=" w-1/4 flex justify-center border">
+            <li>
+              <button>フィルタ</button>
+            </li>
+          </ul>
         </div>
       </div>
     </>
