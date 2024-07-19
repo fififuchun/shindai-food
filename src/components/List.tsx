@@ -4,19 +4,19 @@
 
 const List = [
   {
-    Name: "でんでんでんでん",
+    Name: "でんでんでんで",
     id: "denden",
-    Genre: "ご飯物",
+    Genre: "ご飯",
     Score: [4, 5, 4],
-    Cycle: 5,
+    Time: 5,
     Parking: true,
   },
   {
     Name: "満月や",
     id: "mangetsuya",
-    Genre: "ご飯物",
+    Genre: "ご飯",
     Score: [3, 4, 3],
-    Cycle: 5,
+    Time: 5,
     Parking: true,
   },
 ];

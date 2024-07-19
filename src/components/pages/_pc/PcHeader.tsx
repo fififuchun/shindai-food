@@ -1,5 +1,4 @@
 import React from "react";
-import "./PcHeader.css";
 // import { BrowserRouter, Link } from "react-router-dom";
 import logo from "@/assets/shindaifood_logo.png";
 
@@ -7,7 +6,7 @@ export default function PcHeader() {
   return (
     <>
       {/* <BrowserRouter> */}
-      <header className="flex items-center bg-slate-100">
+      <header className="flex items-center bg-green-100">
         <div className="w-2/3">
           <a href="/" className="flex justify-center">
             <img src={logo} alt="" className="h-32 object-cover" />
