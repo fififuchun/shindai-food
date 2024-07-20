@@ -4,10 +4,10 @@
 
 const List = [
   {
-    Name: "でんでんでんで",
+    Name: "でんでんでんでん",
     id: "denden",
     Genre: "ご飯",
-    Score: [4, 5, 4],
+    Score: [4, 4, 4],
     Time: 5,
     Parking: true,
   },
