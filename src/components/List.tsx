@@ -1,18 +1,29 @@
-const GENRE_COLLECTION = {
-  rice: "ご飯物",
-  ramen: "ラーメン",
-  soba: "そば",
-  pasta: "パスタ",
-  pan: "パン",
-} as const;
-type GENRE_COLLECTION =
-  (typeof GENRE_COLLECTION)[keyof typeof GENRE_COLLECTION];
+// type GenreCollection = {
+//   [key: string]: string;
+//   rice: string;
+//   ramen: string;
+//   soba: string;
+//   pan: string;
+// };
+// const GENRE_COLLECTION: GenreCollection = {
+//   rice: "ご飯",
+//   ramen: "ラーメン",
+//   soba: "そば",
+//   pan: "パン",
+// };
+
+const GENRE_COLLECTION = [
+  /* 0 */ { label: "rice", value: "ご飯", checked: true },
+  /* 1 */ { label: "ramen", value: "ラーメン", checked: true },
+  /* 2 */ { label: "soba", value: "そば", checked: false },
+  /* 3 */ { label: "pan", value: "パン", checked: false },
+];
 
 const List = [
   {
     Name: "でんでん",
     Id: "denden",
-    Genre: GENRE_COLLECTION.rice,
+    Genre: [0, 1],
     Score: [4, 5, 4],
     Cycle: 6,
     Opened: [1130, 1430, 1730, 2200],
@@ -23,7 +34,7 @@ const List = [
   {
     Name: "満月や",
     Id: "mangetsuya",
-    Genre: GENRE_COLLECTION.rice,
+    Genre: [0],
     Score: [5, 3, 3],
     Cycle: 7,
     Opened: [1130, 1500, 1700, 2200],
@@ -33,4 +44,4 @@ const List = [
   },
 ];
 
-export default List;
+export { List, GENRE_COLLECTION };
