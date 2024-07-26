@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react/react-in-jsx-scope */
+// import React from "react";
 import "./input.css";
 import { MediaQueryProvider } from "./components/Provider/MediaQueryProvider";
 import MainComponent from "./components/pages/MainComponent";

@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react/react-in-jsx-scope */
+// import React from "react";
 // import { BrowserRouter, Link } from "react-router-dom";
 import logo from "@/assets/shindaifood_logo.png";
 

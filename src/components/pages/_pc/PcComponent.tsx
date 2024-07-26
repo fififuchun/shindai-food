@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react/react-in-jsx-scope */
+// import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // import { Link } from "react-router-dom";
 

@@ -1,6 +1,7 @@
+/* eslint-disable react/react-in-jsx-scope */
 // TextInput.js
 import { useState } from "react";
-import React from "react";
+// import React from "react";
 
 const TextInput = () => {
   const [text, setText] = useState("");

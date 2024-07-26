@@ -1,8 +1,10 @@
+/* eslint-disable react/react-in-jsx-scope */
+
 // TextInput.test.js
 import userEvent from "@testing-library/user-event";
 import { render, screen } from "@testing-library/react";
 import TextInput from "./TextInput";
-import React from "react";
+// import React from "react";
 
 test("TextInput Component Test", async () => {
   const user = userEvent.setup();
