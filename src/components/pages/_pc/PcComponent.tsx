@@ -1,23 +1,27 @@
 /* eslint-disable react/react-in-jsx-scope */
 // import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+// import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // import { Link } from "react-router-dom";
 
 import PcHeader from "./PcHeader.tsx";
 import PcContents from "./PcContents.tsx";
-import AboutUsPage from "@/components/AboutUsPage";
+// import AboutUsPage from "@/components/AboutUsPage";
 
 const PcComponent = () => {
   return (
     <>
       <PcHeader />
+      <PcContents />
 
-      <Router>
+      {/* <Router>
+        {/* <div>
+          <Route Component={PcContents} />
+        </div> }
         <Routes>
           <Route path="/" element={<PcContents />} />
           <Route path="/aboutus" element={<AboutUsPage />} />
         </Routes>
-      </Router>
+      </Router> */}
     </>
   );
 };
