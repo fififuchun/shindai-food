@@ -1,5 +1,11 @@
 import React, { useState /*useEffect, Fragment*/ } from "react";
-import { List, GENRE_COLLECTION } from "@/components/List.tsx";
+import {
+  List,
+  GENRE_COLLECTION,
+  PRICE_COLLECTION,
+  TIME_COLLECTION,
+} from "@/components/List.tsx";
+
 // import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // import AboutUsPage from "@/components/AboutUsPage";
 import "./PcContents.css";
@@ -52,8 +58,7 @@ const PcContents = () => {
   //-----------------------------------------------------------
   //チェック・ジャンル
   const [genre, setGenre] = useState(GENRE_COLLECTION);
-
-  const handleChange = (e: { target: { value: string } }) => {
+  const handleChangeGenre = (e: { target: { value: string } }) => {
     const newGenres = genre.map((_genre) => {
       const newGenre = { ..._genre };
       if (newGenre.label === e.target.value) newGenre.checked = !_genre.checked;
@@ -63,6 +68,26 @@ const PcContents = () => {
   };
 
   //チェック・予算
+  const [price, setPrice] = useState(PRICE_COLLECTION);
+  const handleChangePrice = (e: { target: { value: string } }) => {
+    const newPrices = price.map((_price) => {
+      const newPrice = { ..._price };
+      if (newPrice.label === e.target.value) newPrice.checked = !_price.checked;
+      return newPrice;
+    });
+    setPrice(newPrices);
+  };
+
+  //チェック・営業時間
+  const [time, setTime] = useState(TIME_COLLECTION);
+  const handleChangeTime = (e: { target: { value: string } }) => {
+    const newTimes = time.map((_time) => {
+      const newTime = { ..._time };
+      if (newTime.label === e.target.value) newTime.checked = !_time.checked;
+      return newTime;
+    });
+    setTime(newTimes);
+  };
 
   //ソート
   const SORT_COLLECTION = [
@@ -79,6 +104,8 @@ const PcContents = () => {
   // ソートとチェックをクリア
   const clear = () => {
     setGenre(GENRE_COLLECTION);
+    setPrice(PRICE_COLLECTION);
+    setTime(TIME_COLLECTION);
     clearSelect();
   };
 
@@ -89,9 +116,20 @@ const PcContents = () => {
     <div className="flex">
       <div className="w-2/3 pl-12">
         {List.filter((rest) => {
+          let isGenre: boolean = false;
           for (let i = 0; i < rest.Genre.length; i++)
-            if (genre[rest.Genre[i]].checked) return true;
-          return false;
+            if (genre[rest.Genre[i]].checked) {
+              isGenre = true;
+              break;
+            }
+
+          const isPrice: boolean =
+            (price[0].checked && rest.Score[2] <= 3) ||
+            (price[1].checked && rest.Score[2] >= 4);
+
+          const isTime: boolean = true;
+
+          return isGenre && isPrice && isTime;
         }).map((rest) => (
           <a key={rest.Id} href="/denden">
             <div className="mt-8 pt-4 pl-4 pb-4 border-b flex content-center">
@@ -182,7 +220,7 @@ const PcContents = () => {
                           type="checkbox"
                           value={genre.label}
                           checked={genre.checked}
-                          onChange={handleChange}
+                          onChange={handleChangeGenre}
                           className="w-5 h-5 appearance-none border cursor-pointer border-gray-300 rounded-md mr-2 hover:border-green-500 hover:bg-green-200 checked:bg-no-repeat checked:bg-center checked:border-green-600 checked:bg-green-300"
                         />
                       </div>
@@ -200,79 +238,71 @@ const PcContents = () => {
           </li>
 
           {/* フィルタ内部：予算 */}
-          <li className="flex mb-6 border-b border-b-slate-600 items-center">
+          <li className="flex pb-1 mb-6 border-b border-b-slate-600 items-center">
             <p className="w-2/5 text-center font-bold">予算</p>
 
             <div className="flex flex-col">
               <div className="items-center">
-                <div className="">
-                  <input
-                    id="value0"
-                    type="checkbox"
-                    value=""
-                    className="w-5 h-5 appearance-none border cursor-pointer border-gray-300 rounded-md mr-2 hover:border-green-500 hover:bg-green-200 checked:bg-no-repeat checked:bg-center checked:border-green-600 checked:bg-green-300"
-                  />
-                  <label
-                    htmlFor="value0"
-                    className="text-sm cursor-pointer text-gray-600 hover:opacity-70"
-                  >
-                    リーズナブル
-                  </label>
-                </div>
-
-                <div>
-                  <input
-                    id="value1"
-                    type="checkbox"
-                    value=""
-                    className="w-5 h-5 appearance-none border cursor-pointer border-gray-300 rounded-md mr-2 hover:border-green-500 hover:bg-green-200 checked:bg-no-repeat checked:bg-center checked:border-green-600 checked:bg-green-300"
-                  />
-                  <label
-                    htmlFor="value1"
-                    className="text-sm cursor-pointer text-gray-600 hover:opacity-70"
-                  >
-                    特別な時に
-                  </label>
-                </div>
+                {price.map((price) => {
+                  return (
+                    <div
+                      className="flex items-center mx-auto mt-0.5"
+                      key={price.label}
+                    >
+                      <div className="flex">
+                        <input
+                          id={price.label}
+                          type="checkbox"
+                          value={price.label}
+                          checked={price.checked}
+                          onChange={handleChangePrice}
+                          className="w-5 h-5 appearance-none border cursor-pointer border-gray-300 rounded-md mr-2 hover:border-green-500 hover:bg-green-200 checked:bg-no-repeat checked:bg-center checked:border-green-600 checked:bg-green-300"
+                        />
+                      </div>
+                      <label
+                        htmlFor={price.label}
+                        className="text-sm cursor-pointer text-gray-600 hover:opacity-70"
+                      >
+                        {price.value}
+                      </label>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </li>
 
           {/* フィルタ内部：営業時間 */}
-          <li className="flex mb-6 border-b border-b-slate-600">
+          <li className="flex pb-1 mb-6 border-b border-b-slate-600 items-center">
             <p className="w-2/5 text-center font-bold">営業時間</p>
 
             <div className="flex flex-col">
               <div className="items-center">
-                <div className="">
-                  <input
-                    id="time0"
-                    type="checkbox"
-                    value=""
-                    className="w-5 h-5 appearance-none border cursor-pointer border-gray-300 rounded-md mr-2 hover:border-green-500 hover:bg-green-200 checked:bg-no-repeat checked:bg-center checked:border-green-600 checked:bg-green-300"
-                  />
-                  <label
-                    htmlFor="time0"
-                    className="text-sm cursor-pointer text-gray-600 hover:opacity-70"
-                  >
-                    ランチ
-                  </label>
-                </div>
-
-                <div>
-                  <input
-                    id="time1"
-                    type="checkbox"
-                    value=""
-                    className="appearance-none border cursor-pointer rounded-md mr-2 hover:border-green-500 hover:bg-green-200 checked:bg-no-repeat checked:bg-center checked:border-green-600 checked:bg-green-300"
-                  />
-                  <label
-                    htmlFor="time1"
-                    className="text-sm cursor-pointer text-gray-600 hover:opacity-70"
-                  >
-                    ディナー
-                  </label>
-                </div>
+                {time.map((time) => {
+                  return (
+                    <div
+                      className="flex items-center mx-auto mt-0.5"
+                      key={time.label}
+                    >
+                      <div className="flex">
+                        <input
+                          id={time.label}
+                          type="checkbox"
+                          value={time.label}
+                          checked={time.checked}
+                          onChange={handleChangeTime}
+                          className="w-5 h-5 appearance-none border cursor-pointer border-gray-300 rounded-md mr-2 hover:border-green-500 hover:bg-green-200 checked:bg-no-repeat checked:bg-center checked:border-green-600 checked:bg-green-300"
+                        />
+                      </div>
+                      <label
+                        htmlFor={time.label}
+                        className="text-sm cursor-pointer text-gray-600 hover:opacity-70"
+                      >
+                        {time.value}
+                      </label>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </li>

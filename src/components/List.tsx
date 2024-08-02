@@ -19,6 +19,17 @@ const GENRE_COLLECTION = [
   /* 3 */ { label: "pan", value: "パン", checked: false },
 ];
 
+const PRICE_COLLECTION = [
+  /* 0 */ { label: "reasonable", value: "リーズナブル", checked: true },
+  /* 1 */ { label: "luxury", value: "特別な時に", checked: false },
+];
+
+const TIME_COLLECTION = [
+  /* 0 */ { label: "currently", value: "現在営業中", checked: true },
+  /* 1 */ { label: "lunch", value: "ランチ", checked: false },
+  /* 2 */ { label: "dinner", value: "ディナー", checked: false },
+];
+
 const List = [
   {
     Name: "でんでん",
@@ -44,4 +55,4 @@ const List = [
   },
 ];
 
-export { List, GENRE_COLLECTION };
+export { List, GENRE_COLLECTION, PRICE_COLLECTION, TIME_COLLECTION };
