@@ -1,4 +1,4 @@
-import React, { useState /*useEffect, Fragment*/ } from "react";
+import React, { useState } from "react";
 import {
   List,
   GENRE_COLLECTION,
@@ -55,6 +55,23 @@ const PcContents = () => {
     return _genres;
   };
 
+  //Opened配列を渡すと現在営業中ならtrue、そうでないならfalseを返す
+  const isOpened = (timeTable: number[], time: number) => {
+    //Listの時刻表の長さが2,4以外なら返す
+    if (!(timeTable.length === 2 || timeTable.length === 4)) return false;
+
+    if (timeTable.length === 2) {
+      if (timeTable[0] < time && time < timeTable[1]) return true;
+    } else {
+      if (
+        (timeTable[0] < time && time < timeTable[1]) ||
+        (timeTable[2] < time && time < timeTable[3])
+      )
+        return true;
+      return false;
+    }
+  };
+
   //-----------------------------------------------------------
   //チェック・ジャンル
   const [genre, setGenre] = useState(GENRE_COLLECTION);
@@ -96,6 +113,21 @@ const PcContents = () => {
     "評価が高い順　　　　　",
   ];
 
+  // let LIST_COPY = [...List];
+
+  const sortList = () => {
+    let copyList;
+
+    if (select === "営業終了時間が早い順　")
+      copyList = [...List].sort((a, b) => a.Cycle - b.Cycle);
+    else if (select === "信大からの距離が近い順")
+      copyList = [...List].sort((a, b) => a.Cycle - b.Cycle);
+    else
+      copyList = [...List].sort((a, b) => average(b.Score) - average(a.Score));
+
+    return copyList;
+  };
+
   const [select, setSelect] = useState("営業終了時間が早い順　");
   const onSelect = (e: { target: { value: React.SetStateAction<string> } }) =>
     setSelect(e.target.value);
@@ -115,81 +147,93 @@ const PcContents = () => {
   return (
     <div className="flex">
       <div className="w-2/3 pl-12">
-        {List.filter((rest) => {
-          let isGenre: boolean = false;
-          for (let i = 0; i < rest.Genre.length; i++)
-            if (genre[rest.Genre[i]].checked) {
-              isGenre = true;
-              break;
-            }
+        {sortList()
+          .filter((rest) => {
+            let isGenre: boolean = false;
+            for (let i = 0; i < rest.Genre.length; i++)
+              if (genre[rest.Genre[i]].checked) {
+                isGenre = true;
+                break;
+              }
 
-          const isPrice: boolean =
-            (price[0].checked && rest.Score[2] <= 3) ||
-            (price[1].checked && rest.Score[2] >= 4);
+            const isPrice: boolean =
+              (price[0].checked && rest.Score[2] <= 3) ||
+              (price[1].checked && rest.Score[2] >= 4);
 
-          const isTime: boolean = true;
+            const d = new Date();
+            const hour = d.getHours();
+            const minute = d.getMinutes();
+            const currentTime = hour * 100 + minute;
 
-          return isGenre && isPrice && isTime;
-        }).map((rest) => (
-          <a key={rest.Id} href="/denden">
-            <div className="mt-8 pt-4 pl-4 pb-4 border-b flex content-center">
-              {/* 写真 */}
-              <div className="flex justify-center h-36 w-1/3">
-                <img src={img1} alt="" className="object-scale-down" />
-              </div>
+            const isTime =
+              (time[0].checked && isOpened(rest.Opened, currentTime)) ||
+              (time[1].checked && isOpened(rest.Opened, 1300)) ||
+              (time[2].checked && isOpened(rest.Opened, 1900));
 
-              {/* 右部店舗情報 */}
-              <div>
-                {/* 店舗名・評価 */}
-                <div className="flex items-center pt-2 pl-2 pb-2">
-                  <h3 className="ml-2 mr-4 font-bold text-2xl text-green-700">
-                    {rest.Name}
-                  </h3>
-                  <p className="text-black mt-1 mr-1 font-bold text-lg">
-                    {roundWithScale(average(rest.Score), 2)}
+            return isGenre && isPrice && isTime;
+          })
+          .map((rest) => (
+            <a key={rest.Id} href="/denden">
+              <div className="mt-8 pt-4 pl-4 pb-4 border-b flex content-center">
+                {/* 写真 */}
+                <div className="flex justify-center h-36 w-1/3">
+                  <img src={img1} alt="" className="object-scale-down" />
+                </div>
+
+                {/* 右部店舗情報 */}
+                <div>
+                  {/* 店舗名・評価 */}
+                  <div className="flex items-center pt-2 pl-2 pb-2">
+                    <h3 className="ml-2 mr-4 font-bold text-2xl text-green-700">
+                      {rest.Name}
+                    </h3>
+                    <p className="text-black mt-1 mr-1 font-bold text-lg">
+                      {roundWithScale(average(rest.Score), 2)}
+                    </p>
+
+                    {/* 星 */}
+                    {starList(
+                      roundWithScale(Math.floor(average(rest.Score)), 2)
+                    )}
+                    {/* 小数点の星 */}
+                    <img
+                      src={star}
+                      alt=""
+                      style={{
+                        width:
+                          (average(rest.Score) -
+                            Math.floor(average(rest.Score))) *
+                          24,
+                        height: 24,
+                      }}
+                      className="object-left object-cover"
+                    />
+                  </div>
+
+                  {/* ジャンル */}
+                  <p className="text-black ml-8 p-0.5 text-left">
+                    ジャンル：{genreArray(rest.Genre)}
                   </p>
 
-                  {/* 星 */}
-                  {starList(roundWithScale(Math.floor(average(rest.Score)), 2))}
-                  {/* 小数点の星 */}
-                  <img
-                    src={star}
-                    alt=""
-                    style={{
-                      width:
-                        (average(rest.Score) -
-                          Math.floor(average(rest.Score))) *
-                        24,
-                      height: 24,
-                    }}
-                    className="object-left object-cover"
-                  />
+                  {/* 距離 */}
+                  <div className="flex p-0.5">
+                    <p className="text-black ml-8">信大から：</p>
+
+                    <img src={walk} alt="" className="w-6 h-6 mb-0" />
+                    <p className="text-black mb-0">{rest.Cycle * 3}分</p>
+
+                    <img src={cycle} alt="" className="w-6 h-6 ml-3 mb-0" />
+                    <p className="text-black mb-0">{rest.Cycle}分</p>
+                  </div>
+
+                  {/* 営業時間 */}
+                  <p className="text-black ml-8 p-0.5 text-left">
+                    営業時間：〜21:00
+                  </p>
                 </div>
-
-                {/* ジャンル */}
-                <p className="text-black ml-8 p-0.5 text-left">
-                  ジャンル：{genreArray(rest.Genre)}
-                </p>
-
-                {/* 距離 */}
-                <div className="flex p-0.5">
-                  <p className="text-black ml-8">信大から：</p>
-
-                  <img src={walk} alt="" className="w-6 h-6 mb-0" />
-                  <p className="text-black mb-0">{rest.Cycle * 3}分</p>
-
-                  <img src={cycle} alt="" className="w-6 h-6 ml-3 mb-0" />
-                  <p className="text-black mb-0">{rest.Cycle}分</p>
-                </div>
-
-                {/* 営業時間 */}
-                <p className="text-black ml-8 p-0.5 text-left">
-                  営業時間：〜21:00
-                </p>
               </div>
-            </div>
-          </a>
-        ))}
+            </a>
+          ))}
       </div>
 
       {/* ページ右部のフィルタ&ソート */}
@@ -347,15 +391,15 @@ const PcContents = () => {
 
         <div className="flex justify-center">
           <button
-            className="font-bold bg-orange-00 w-2/5 py-1 mr-4 rounded text-black border border-black"
+            className="font-bold bg-orange-00 w-4/5 py-1 mr- rounded text-black border border-black"
             onClick={clear}
           >
             クリア
           </button>
 
-          <button className="font-bold bg-green-500 w-3/5 py-1 rounded text-white">
+          {/* <button className="font-bold bg-green-500 w-3/5 py-1 rounded text-white">
             ソートする
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

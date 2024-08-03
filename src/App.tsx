@@ -2,7 +2,7 @@
 // import React from "react";
 import "./input.css";
 import { MediaQueryProvider } from "./components/Provider/MediaQueryProvider";
-import MainComponent from "./components/pages/MainComponent";
+import MainComponent from "./components/MainComponent";
 
 // import MainComponent from "@/components/pages/MainComponent.tsx";
 // import PcComponent from "@/components/pages/_pc/PcComponent";
