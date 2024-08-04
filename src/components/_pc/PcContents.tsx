@@ -15,7 +15,7 @@ import walk from "@/assets/walkIcon.png";
 import cycle from "@/assets/cycleIcon.png";
 import star from "@/assets/star.png";
 import sort from "@/assets/sort.png";
-import filter from "@/assets/filter3.png";
+import filter from "@/assets/filter.png";
 
 const PcContents = () => {
   //星をscoreの小数点切り捨て個出す
