@@ -143,7 +143,7 @@ const SpContents = () => {
 
   return (
     <div className="flex">
-      <div className="w-full px-10">
+      <div className="w-full px-8">
         {sortList()
           .filter((rest) => {
             let isGenre: boolean = false;
@@ -171,15 +171,9 @@ const SpContents = () => {
           })
           .map((rest) => (
             <a key={rest.Id} href="/denden">
-              <div className="mt-4 pt-4 pl-4 pb-4 border-b flex content-center bg-slate-00">
-                {/* 写真 */}
-                <div className="flex justify-center h-36 w-1/3">
-                  <img src={img1} alt="" className="object-scale-down" />
-                </div>
-
-                {/* 右部店舗情報 */}
-                <div className="pl-2">
-                  <h3 className="ml-2 mr-4 font-bold text-2xl text-green-700">
+              <div className="mt-4 pt-4 pb-2 pl-4 border-b content-center">
+                <div className="flex">
+                  <h3 className="ml-2 mr-4 font-bold flex items-center text-2xl text-green-700">
                     {rest.Name}
                   </h3>
 
@@ -207,27 +201,39 @@ const SpContents = () => {
                       className="object-left object-cover"
                     />
                   </div>
+                </div>
 
-                  {/* ジャンル */}
-                  <p className="text-black ml-6 p-0.5 text-left">
-                    ジャンル：{genreArray(rest.Genre)}
-                  </p>
+                <div className="flex bg-slate-00">
+                  {/* 写真 */}
+                  <img
+                    src={img1}
+                    alt=""
+                    className="h-28 w-1/3 object-scale-down"
+                  />
 
-                  {/* 距離 */}
-                  <div className="flex p-0.5 ml-6">
-                    <p className="text-black">信大から：</p>
+                  {/* 右部店舗情報 */}
+                  <div className="pl-2 flex flex-col justify-center">
+                    {/* ジャンル */}
+                    <p className="text-black text-sm ml-6 p-0.5 text-left">
+                      ジャンル：{genreArray(rest.Genre)}
+                    </p>
 
-                    <img src={walk} alt="" className="w-6 h-6 mb-0" />
-                    <p className="text-black">{rest.Cycle * 3}分</p>
+                    {/* 距離 */}
+                    <div className="flex p-0.5 ml-6">
+                      <p className="text-black text-sm">信大から：</p>
 
-                    <img src={cycle} alt="" className="w-6 h-6 ml-3 mb-0" />
-                    <p className="text-black">{rest.Cycle}分</p>
+                      <img src={walk} alt="" className="w-6 h-6" />
+                      <p className="text-black text-sm">{rest.Cycle * 3}分</p>
+
+                      <img src={cycle} alt="" className="w-6 h-6 ml-3" />
+                      <p className="text-black text-sm">{rest.Cycle}分</p>
+                    </div>
+
+                    {/* 営業時間 */}
+                    <p className="text-black text-sm ml-6 p-0.5 text-left">
+                      営業時間：〜21:00
+                    </p>
                   </div>
-
-                  {/* 営業時間 */}
-                  <p className="text-black ml-6 p-0.5 text-left">
-                    営業時間：〜21:00
-                  </p>
                 </div>
               </div>
             </a>
