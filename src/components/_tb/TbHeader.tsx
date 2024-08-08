@@ -6,9 +6,9 @@ export default function PcHeader() {
     <>
       {/* <BrowserRouter> */}
       <header className="flex items-center bg-green-100">
-        <div className="w-2/3">
+        <div className="w-3/4">
           <a href="/" className="flex justify-center">
-            <img src={logo} alt="" className="h-32 object-cover" />
+            <img src={logo} alt="" className="h-32 object-scale-down" />
           </a>
         </div>
 
@@ -17,7 +17,7 @@ export default function PcHeader() {
             <li>
               <a
                 href="/"
-                className="text-slate-950 font-bold text-2xl transition hover:opacity-40"
+                className="text-slate-950 font-bold text-xl transition hover:opacity-40"
               >
                 TOP
               </a>
@@ -27,7 +27,7 @@ export default function PcHeader() {
             <li>
               <a
                 href="/aboutus"
-                className="text-slate-950 font-bold text-2xl transition hover:opacity-40"
+                className="text-slate-950 font-bold text-xl transition hover:opacity-40"
               >
                 ABOUT US
               </a>
