@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import SpHeader from "./SpHeader.tsx";
 import SpContents from "./SpContents.tsx";
 import AboutUsPage from "@/components/AboutUsPage";
+import { Fragment } from "react/jsx-runtime";
 
 const SpComponent = () => {
   return (

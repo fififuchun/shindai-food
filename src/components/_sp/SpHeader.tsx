@@ -41,10 +41,10 @@ export default function SpHeader() {
         </button>
       </header>
 
-      <div>
-        <nav className="fixed left-0 w-3/5 bg-black opacity-50 h-full z-10"></nav>
+      <div className="menu-bar">
+        <nav className="fixed left-0 w-full bg-black opacity-50 h-full z-10 nav-mask"></nav>
 
-        <nav className="fixed right-0 w-2/5 min-h-full text-black flex flex-col items-center bg-green-100 opacity-95 z-20">
+        <nav className="fixed right-0 w-2/5 min-h-full text-black flex flex-col items-center bg-green-100 opacity-95 z-20 nav-links">
           <button className="w-2/3 py-8 font-bold text-2xl border-y border-green-300 transition-opacity">
             TOP
           </button>
