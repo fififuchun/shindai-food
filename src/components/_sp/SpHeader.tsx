@@ -1,6 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 // import { BrowserRouter, Link } from "react-router-dom";
 import { useState } from "react";
+// import { motion } from "framer-motion";
 import logo from "@/assets/shindaifood_logo.png";
 import "./SpHeader.css";
 
@@ -41,19 +42,21 @@ export default function SpHeader() {
         </button>
       </header>
 
-      <div className="menu-bar">
-        <nav className="fixed left-0 w-full bg-black opacity-50 h-full z-10 nav-mask"></nav>
+      {open && (
+        <div className="menu-bar transition">
+          <nav className="fixed left-0 w-full bg-black opacity-50 h-full z-10 nav-mask"></nav>
 
-        <nav className="fixed right-0 w-2/5 min-h-full text-black flex flex-col items-center bg-green-100 opacity-95 z-20 nav-links">
-          <button className="w-2/3 py-8 font-bold text-2xl border-y border-green-300 transition-opacity">
-            TOP
-          </button>
+          <nav className="fixed right-0 w-2/5 min-h-full text-black flex flex-col items-center bg-green-100 opacity-95 z-20 translate-x-ful t nav-links">
+            <button className="w-2/3 py-8 font-bold text-2xl border-y border-green-300 transition-opacity">
+              TOP
+            </button>
 
-          <button className="w-2/3 py-8 font-bold text-2xl border-b border-green-300 transition-opacity">
-            ABOUT US
-          </button>
-        </nav>
-      </div>
+            <button className="w-2/3 py-8 font-bold text-2xl border-b border-green-300 transition-opacity">
+              ABOUT US
+            </button>
+          </nav>
+        </div>
+      )}
 
       {/* </BrowserRouter> */}
     </>
