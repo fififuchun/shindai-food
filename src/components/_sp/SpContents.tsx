@@ -13,6 +13,7 @@ import cycle from "@/assets/cycleIcon.png";
 import star from "@/assets/star.png";
 import sort from "@/assets/sort.png";
 import filter from "@/assets/filter.png";
+import { isOpen } from "./SpHeader";
 
 const SpContents = () => {
   //星をscoreの小数点切り捨て個出す
@@ -138,13 +139,24 @@ const SpContents = () => {
     clearSelect();
   };
 
+  // console.log(isOpen);
+
   //-----------------------------------------------------------
   //-----------------------------------------------------------
 
   return (
     <>
       {/* ページ右部のフィルタ&ソート */}
-      <div className="text-black m-12 p-6 rounded-md bg-green-200">
+      {/* {isOpen && <div className="h-36 bg-slate-400">{isOpen}</div>} */}
+      {/* <div className={isOpen ? "h-32" : "h-32"}></div> */}
+
+      <div
+        className={
+          isOpen
+            ? "text-black mx-12 mt-40 mb-8 p-6 rounded-md bg-green-200"
+            : "text-black mx-12 my-8 p-6 rounded-md bg-green-200"
+        }
+      >
         {/* フィルタアイコン */}
         <div className="flex">
           <img src={filter} alt="" className="w-5 h-5 mt-0.5" />
