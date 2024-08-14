@@ -1,7 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import { SpHeader, isOpen } from "./SpHeader.tsx";
+import SpHeader from "./SpHeader.tsx";
 import SpContents from "./SpContents.tsx";
 import AboutUsPage from "@/components/AboutUsPage";
 
@@ -9,8 +9,7 @@ const SpComponent = () => {
   return (
     <>
       <SpHeader />
-      {/* {true && <div className="h-36 bg-slate-400">{isOpen}</div>} */}
-      {/* {console.log(isOpen)} */}
+      {/* {isOpen && <div className="h-36 bg-slate-400">{isOpen}</div>} */}
 
       <Router>
         <Routes>

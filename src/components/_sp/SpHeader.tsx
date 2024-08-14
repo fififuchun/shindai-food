@@ -4,20 +4,21 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import logo from "@/assets/shindaifood_logo.png";
 
-let isOpen = false;
-
 const SpHeader = () => {
   const [open, setOpen] = useState(false);
   const clickMenu = () => {
     setOpen(!open);
-    isOpen = open;
-    // console.log(open);
-    // console.log(isOpen);
   };
 
   return (
     <>
       {/* <BrowserRouter> */}
+
+      {open && (
+        <p className="bg-green-100 h-32 text-black font-bold items-center flex justify-center">
+          見せられないよ...!
+        </p>
+      )}
 
       <header
         className={
@@ -36,18 +37,46 @@ const SpHeader = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 1.1 }}
         >
-          {(function () {
+          {/* {(function () {
             const list = [];
             for (let i = 0; i < 3; i++) {
               list.push(
-                <div
-                  className="bg-green-600 rounded-full list-none w-10 pb-0.5 mt-3"
+                <motion.div
+                  className={
+                    open && i === 0
+                      ? "bg-green-600 rounded-full list-none w-10 pb-0.5 mt-3 rotate-45"
+                      : "bg-green-600 rounded-full list-none w-10 pb-0.5 mt-3"
+                  }
                   key={i}
-                ></div>
+                />
               );
             }
             return <ul className="mb-1">{list}</ul>;
-          })()}
+          })()} */}
+
+          <motion.div
+            className={
+              open
+                ? "bg-green-600 rounded-full list-none w-10 pb-0.5 mt-3 rotate-45"
+                : "bg-green-600 rounded-full list-none w-10 pb-0.5 mt-3"
+            }
+          />
+          <motion.div
+            className={
+              open
+                ? "bg-green-600 rounded-full list-none w-10 pb-0.5 mt-3 opacity-0"
+                : "bg-green-600 rounded-full list-none w-10 pb-0.5 mt-3"
+            }
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 1 }}
+          />
+          <motion.div
+            className={
+              open
+                ? "bg-green-600 rounded-full list-none w-10 pb-0.5 mt-3 -rotate-45"
+                : "bg-green-600 rounded-full list-none w-10 pb-0.5 mt-3"
+            }
+          />
           <p className="text-green-600 font-bold">{open ? "CLOSE" : "MENU"}</p>
         </motion.button>
 
@@ -55,17 +84,17 @@ const SpHeader = () => {
           {/* 背景 */}
           {open && (
             <motion.button
-              className="fixed w-full bg-black opacity-50 h-full z-10 transition"
-              // transition={{ delay: 0, duration: 1 }}
+              className="fixed w-full bg-black opacity- h-full z-10"
+              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
               onClick={clickMenu}
-            >
-              <motion.nav animate={{ opacity: open ? 0.7 : 0 }} />
-            </motion.button>
+            />
           )}
 
           {/* サイドバー */}
           <motion.nav
-            className="fixed right-0 w-2/5 min-h-full text-black flex flex-col items-center bg-green-100 opacity-95 z-20"
+            className="fixed right-0 w-5/12 min-h-full text-black flex flex-col items-center bg-green-100 opacity-95 z-20"
             animate={{ x: open ? 0 : 520 }}
           >
             <button className="w-2/3 py-8 font-bold text-2xl border-y border-green-300 transition-opacity">
@@ -84,4 +113,4 @@ const SpHeader = () => {
   );
 };
 
-export { SpHeader, isOpen };
+export default SpHeader;
