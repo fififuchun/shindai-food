@@ -31,7 +31,7 @@ export default function PcHeader() {
               >
                 ABOUT US
               </a>
-              {/* <Link to="/aboutus">ABOUT US</Link> */}
+              1{/* <Link to="/aboutus">ABOUT US</Link> */}
             </li>
           </ul>
         </nav>

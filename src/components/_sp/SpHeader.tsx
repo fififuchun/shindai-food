@@ -37,46 +37,29 @@ const SpHeader = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 1.1 }}
         >
-          {/* {(function () {
-            const list = [];
-            for (let i = 0; i < 3; i++) {
-              list.push(
-                <motion.div
-                  className={
-                    open && i === 0
-                      ? "bg-green-600 rounded-full list-none w-10 pb-0.5 mt-3 rotate-45"
-                      : "bg-green-600 rounded-full list-none w-10 pb-0.5 mt-3"
-                  }
-                  key={i}
-                />
-              );
-            }
-            return <ul className="mb-1">{list}</ul>;
-          })()} */}
-
+          {/* 1 */}
           <motion.div
-            className={
-              open
-                ? "bg-green-600 rounded-full list-none w-10 pb-0.5 mt-3 rotate-45"
-                : "bg-green-600 rounded-full list-none w-10 pb-0.5 mt-3"
-            }
+            className="bg-green-600 rounded-full list-none w-10 pb-0.5 mt-3 rotate-0"
+            // initial={{ rotate: 0 }}
+            animate={{
+              rotate: open ? 45 : 0,
+              translateY: open ? 14 : 0,
+            }}
+            transition={{ duration: 0.2 }}
           />
+          {/* 2 */}
           <motion.div
-            className={
-              open
-                ? "bg-green-600 rounded-full list-none w-10 pb-0.5 mt-3 opacity-0"
-                : "bg-green-600 rounded-full list-none w-10 pb-0.5 mt-3"
-            }
+            className="bg-green-600 rounded-full list-none w-10 pb-0.5 mt-3"
             initial={{ opacity: 1 }}
-            animate={{ opacity: 1 }}
+            animate={{ opacity: open ? 0 : 1 }}
           />
+          {/* 3 */}
           <motion.div
-            className={
-              open
-                ? "bg-green-600 rounded-full list-none w-10 pb-0.5 mt-3 -rotate-45"
-                : "bg-green-600 rounded-full list-none w-10 pb-0.5 mt-3"
-            }
+            className="bg-green-600 rounded-full list-none w-10 pb-0.5 mt-3"
+            animate={{ rotate: open ? -45 : 0, translateY: open ? -14 : 0 }}
+            transition={{ duration: 0.2 }}
           />
+          {/* テキスト */}
           <p className="text-green-600 font-bold">{open ? "CLOSE" : "MENU"}</p>
         </motion.button>
 

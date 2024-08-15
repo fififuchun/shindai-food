@@ -6,6 +6,7 @@ import {
   PRICE_COLLECTION,
   TIME_COLLECTION,
 } from "@/components/List.tsx";
+import { motion } from "framer-motion";
 
 import img1 from "@/assets/1.png";
 import walk from "@/assets/walkIcon.png";
@@ -136,13 +137,18 @@ const SpContents = () => {
     clearSelect();
   };
 
+  const [detail, setDetail] = useState(false);
+  const onDetail = () => {
+    setDetail(!detail);
+  };
+
   //-----------------------------------------------------------
   //-----------------------------------------------------------
 
   return (
     <>
       {/* ページ右部のフィルタ&ソート */}
-      <div className="text-black mx-12 my-8 p-6 rounded-md bg-green-200">
+      <div className="text-black mx-12 my-8 px-6 py-4 rounded-md bg-green-200">
         {/* フィルタアイコン */}
         <div className="flex">
           <img src={filter} alt="" className="w-5 h-5 mt-0.5" />
@@ -150,7 +156,7 @@ const SpContents = () => {
         </div>
 
         {/* フィルタ本体 */}
-        <ul className="pt-3 pb-12">
+        <ul className="pt-3 pb-8">
           {/* フィルタ内部：ジャンル */}
           <li className="flex pb-1 mb-6 border-b border-b-slate-600 items-center">
             <p className="w-2/5 text-center font-bold">ジャンル</p>
@@ -186,74 +192,88 @@ const SpContents = () => {
             </div>
           </li>
 
-          {/* フィルタ内部：予算 */}
-          <li className="flex pb-1 mb-6 border-b border-b-slate-600 items-center">
-            <p className="w-2/5 text-center font-bold">予算</p>
+          {detail && (
+            <div>
+              {/* フィルタ内部：予算 */}
+              <li className="flex pb-1 mb-6 border-b border-b-slate-600 items-center">
+                <p className="w-2/5 text-center font-bold">予算</p>
 
-            <div className="flex flex-col">
-              <div className="items-center">
-                {price.map((price) => {
-                  return (
-                    <div
-                      className="flex items-center mx-auto mt-0.5"
-                      key={price.label}
-                    >
-                      <div className="flex">
-                        <input
-                          id={price.label}
-                          type="checkbox"
-                          value={price.label}
-                          checked={price.checked}
-                          onChange={handleChangePrice}
-                          className="w-5 h-5 appearance-none border cursor-pointer border-gray-300 rounded-md mr-2 hover:border-green-500 hover:bg-green-200 checked:bg-no-repeat checked:bg-center checked:border-green-600 checked:bg-green-300"
-                        />
-                      </div>
-                      <label
-                        htmlFor={price.label}
-                        className="text-sm cursor-pointer text-gray-600 hover:opacity-70"
-                      >
-                        {price.value}
-                      </label>
-                    </div>
-                  );
-                })}
-              </div>
+                <div className="flex flex-col">
+                  <div className="items-center">
+                    {price.map((price) => {
+                      return (
+                        <div
+                          className="flex items-center mx-auto mt-0.5"
+                          key={price.label}
+                        >
+                          <div className="flex">
+                            <input
+                              id={price.label}
+                              type="checkbox"
+                              value={price.label}
+                              checked={price.checked}
+                              onChange={handleChangePrice}
+                              className="w-5 h-5 appearance-none border cursor-pointer border-gray-300 rounded-md mr-2 hover:border-green-500 hover:bg-green-200 checked:bg-no-repeat checked:bg-center checked:border-green-600 checked:bg-green-300"
+                            />
+                          </div>
+                          <label
+                            htmlFor={price.label}
+                            className="text-sm cursor-pointer text-gray-600 hover:opacity-70"
+                          >
+                            {price.value}
+                          </label>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </li>
+
+              {/* フィルタ内部：営業時間 */}
+              <li className="flex pb-1 mb-6 border-b border-b-slate-600 items-center">
+                <p className="w-2/5 text-center font-bold">営業時間</p>
+
+                <div className="flex flex-col">
+                  <div className="items-center">
+                    {time.map((time) => {
+                      return (
+                        <div
+                          className="flex items-center mx-auto mt-0.5"
+                          key={time.label}
+                        >
+                          <div className="flex">
+                            <input
+                              id={time.label}
+                              type="checkbox"
+                              value={time.label}
+                              checked={time.checked}
+                              onChange={handleChangeTime}
+                              className="w-5 h-5 appearance-none border cursor-pointer border-gray-300 rounded-md mr-2 hover:border-green-500 hover:bg-green-200 checked:bg-no-repeat checked:bg-center checked:border-green-600 checked:bg-green-300"
+                            />
+                          </div>
+                          <label
+                            htmlFor={time.label}
+                            className="text-sm cursor-pointer text-gray-600 hover:opacity-70"
+                          >
+                            {time.value}
+                          </label>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </li>
             </div>
-          </li>
+          )}
 
-          {/* フィルタ内部：営業時間 */}
-          <li className="flex pb-1 mb-6 border-b border-b-slate-600 items-center">
-            <p className="w-2/5 text-center font-bold">営業時間</p>
-
-            <div className="flex flex-col">
-              <div className="items-center">
-                {time.map((time) => {
-                  return (
-                    <div
-                      className="flex items-center mx-auto mt-0.5"
-                      key={time.label}
-                    >
-                      <div className="flex">
-                        <input
-                          id={time.label}
-                          type="checkbox"
-                          value={time.label}
-                          checked={time.checked}
-                          onChange={handleChangeTime}
-                          className="w-5 h-5 appearance-none border cursor-pointer border-gray-300 rounded-md mr-2 hover:border-green-500 hover:bg-green-200 checked:bg-no-repeat checked:bg-center checked:border-green-600 checked:bg-green-300"
-                        />
-                      </div>
-                      <label
-                        htmlFor={time.label}
-                        className="text-sm cursor-pointer text-gray-600 hover:opacity-70"
-                      >
-                        {time.value}
-                      </label>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+          <li className="text-center bg-slate-00">
+            <motion.button
+              className="pointer fle w-3/4 py-1 px-6 font-bold border border-black rounded-md"
+              onClick={onDetail}
+            >
+              <div className="borde border-black">a</div>
+              詳細設定
+            </motion.button>
           </li>
         </ul>
 
@@ -296,7 +316,7 @@ const SpContents = () => {
 
         <div className="flex justify-center">
           <button
-            className="font-bold bg-orange-00 w-4/5 py-1 mr- rounded text-black border border-black"
+            className="font-bold w-4/5 py-1 mr- rounded text-black border border-black"
             onClick={clear}
           >
             クリア
