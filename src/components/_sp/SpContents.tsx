@@ -14,6 +14,7 @@ import cycle from "@/assets/cycleIcon.png";
 import star from "@/assets/star.png";
 import sort from "@/assets/sort.png";
 import filter from "@/assets/filter.png";
+import detailArrow from "@/assets/detail.png";
 
 const SpContents = () => {
   //星をscoreの小数点切り捨て個出す
@@ -137,10 +138,15 @@ const SpContents = () => {
     clearSelect();
   };
 
-  const [detail, setDetail] = useState(false);
-  const onDetail = () => {
-    setDetail(!detail);
+  const [filterDetail, setFilterDetail] = useState(false);
+  const onFilterDetail = () => {
+    setFilterDetail(!filterDetail);
   };
+
+  // const [sortDetail, setSortDetail] = useState(false);
+  // const onSortDetail = () => {
+  //   setSortDetail(!sortDetail);
+  // };
 
   //-----------------------------------------------------------
   //-----------------------------------------------------------
@@ -156,7 +162,7 @@ const SpContents = () => {
         </div>
 
         {/* フィルタ本体 */}
-        <ul className="pt-3 pb-8">
+        <ul className="pt-3 pb-4">
           {/* フィルタ内部：ジャンル */}
           <li className="flex pb-1 mb-6 border-b border-b-slate-600 items-center">
             <p className="w-2/5 text-center font-bold">ジャンル</p>
@@ -192,7 +198,7 @@ const SpContents = () => {
             </div>
           </li>
 
-          {detail && (
+          {filterDetail && (
             <div>
               {/* フィルタ内部：予算 */}
               <li className="flex pb-1 mb-6 border-b border-b-slate-600 items-center">
@@ -265,22 +271,38 @@ const SpContents = () => {
               </li>
             </div>
           )}
-
-          <li className="text-center bg-slate-00">
-            <motion.button
-              className="pointer fle w-3/4 py-1 px-6 font-bold border border-black rounded-md"
-              onClick={onDetail}
-            >
-              <div className="borde border-black">a</div>
-              詳細設定
-            </motion.button>
-          </li>
         </ul>
 
+        <div className="flex justify-center mb-10">
+          <motion.button
+            className="pointer flex justify-center items-center w-3/4 py-1 px-6 font-bold borde border-black rounded-md"
+            onClick={onFilterDetail}
+          >
+            <motion.img
+              src={detailArrow}
+              alt=""
+              className="w-6 mr-2"
+              animate={{ rotate: filterDetail ? 180 : 0 }}
+            />
+            詳細設定
+          </motion.button>
+        </div>
+
         {/* ソート */}
-        <div className="flex">
+        <div className="flex items-center mb-">
           <img src={sort} alt="" className="w-5 h-6" />
           <p className="font-bold pl-1">ソート</p>
+
+          {/* <div className="w-3/4 ml-auto">
+            <motion.button className="flex w-5/6 items-center border border-black text-black text-sm text-left rounded-md py-1 pl-3 ml-auto">
+              {select}
+              <motion.img src={detailArrow} className="flex w-5 ml-auto mr-2" />
+            </motion.button>
+
+            <motion.button className="flex absolute w-5/6 items-center borde bg-green-300 border-black text-black text-sm text-left py-1 pl-3 ml-auto">
+              {select}
+            </motion.button>
+          </div> */}
         </div>
 
         <div className="p-1 mb-8 flex flex-col">
