@@ -4,7 +4,6 @@ import logo from "@/assets/shindaifood_logo.png";
 export default function PcHeader() {
   return (
     <>
-      {/* <BrowserRouter> */}
       <header className="flex items-center bg-green-100">
         <div className="w-3/4">
           <a href="/" className="flex justify-center">
@@ -36,7 +35,6 @@ export default function PcHeader() {
           </ul>
         </nav>
       </header>
-      {/* </BrowserRouter> */}
     </>
   );
 }

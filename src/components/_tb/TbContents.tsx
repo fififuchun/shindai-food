@@ -143,10 +143,10 @@ const TbContents = () => {
     setFilterDetail(!filterDetail);
   };
 
-  const [sortDetail, setSortDetail] = useState(false);
-  const onSortDetail = () => {
-    setSortDetail(!sortDetail);
-  };
+  // const [sortDetail, setSortDetail] = useState(false);
+  // const onSortDetail = () => {
+  //   setSortDetail(!sortDetail);
+  // };
 
   //-----------------------------------------------------------
   //-----------------------------------------------------------

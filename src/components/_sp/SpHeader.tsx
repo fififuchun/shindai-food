@@ -1,8 +1,8 @@
 /* eslint-disable react/react-in-jsx-scope */
-// import { BrowserRouter, Link } from "react-router-dom";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import logo from "@/assets/shindaifood_logo.png";
+import { Link } from "react-router-dom";
 
 const SpHeader = () => {
   const [open, setOpen] = useState(false);
@@ -12,11 +12,9 @@ const SpHeader = () => {
 
   return (
     <>
-      {/* <BrowserRouter> */}
-
       {open && (
-        <p className="bg-green-100 h-32 text-black font-bold items-center flex justify-center">
-          見せられないよ...!
+        <p className="bg-green-100 h-32 text-black font-bold items-center flex justify-center text-left">
+          見ないで!
         </p>
       )}
 
@@ -80,18 +78,22 @@ const SpHeader = () => {
             className="fixed right-0 w-5/12 min-h-full text-black flex flex-col items-center bg-green-100 opacity-95 z-20"
             animate={{ x: open ? 0 : 520 }}
           >
-            <button className="w-2/3 py-8 font-bold text-2xl border-y border-green-300 transition-opacity">
+            <Link
+              to="/"
+              className="w-2/3 py-8 flex justify-center font-bold text-2xl border-y border-green-300 transition-opacity"
+            >
               TOP
-            </button>
+            </Link>
 
-            <button className="w-2/3 py-8 font-bold text-2xl border-b border-green-300 transition-opacity">
+            <Link
+              to="/aboutus"
+              className="w-2/3 py-8 flex justify-center font-bold text-2xl border-b border-green-300 transition-opacity"
+            >
               ABOUT US
-            </button>
+            </Link>
           </motion.nav>
         </div>
       </header>
-
-      {/* </BrowserRouter> */}
     </>
   );
 };

@@ -1,18 +1,54 @@
 /* eslint-disable react/react-in-jsx-scope */
-import PcComponent from "@/components/_pc/PcComponent";
-import SpComponent from "@/components/_sp/SpComponent";
-import TbComponent from "@/components/_tb/TbComponent";
 import { useMediaQueryContext } from "@/components/Provider/MediaQueryProvider";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import SpHeader from "./_sp/SpHeader.tsx";
+import SpContents from "./_sp/SpContents.tsx";
+
+import PcHeader from "./_pc/PcHeader";
+import PcContents from "./_pc/PcContents";
+
+import TbHeader from "./_tb/TbHeader.tsx";
+import TbContents from "./_tb/TbContents.tsx";
+
+import AboutUsPage from "@/components/AboutUsPage";
 
 const MainComponent = () => {
-  const { isMobileSite /*, isTabletSite*/, isPcSite } = useMediaQueryContext();
+  const { isMobileSite, /*isTabletSite,*/ isPcSite } = useMediaQueryContext();
 
   if (isMobileSite) {
-    return <SpComponent />;
+    return (
+      <BrowserRouter>
+        <SpHeader />
+
+        <Routes>
+          <Route path="/" element={<SpContents />} />
+          <Route path="/aboutus" element={<AboutUsPage />} />
+        </Routes>
+      </BrowserRouter>
+    );
   } else if (isPcSite) {
-    return <PcComponent />;
+    return (
+      <BrowserRouter>
+        <PcHeader />
+
+        <Routes>
+          <Route path="/" element={<PcContents />} />
+          <Route path="/aboutus" element={<AboutUsPage />} />
+        </Routes>
+      </BrowserRouter>
+    );
   } else {
-    return <TbComponent />;
+    return (
+      <BrowserRouter>
+        <TbHeader />
+
+        <Routes>
+          <Route path="/" element={<TbContents />} />
+          <Route path="/aboutus" element={<AboutUsPage />} />
+        </Routes>
+      </BrowserRouter>
+    );
   }
 };
 
