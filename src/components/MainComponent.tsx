@@ -12,6 +12,7 @@ import TbHeader from "./_tb/TbHeader.tsx";
 import TbContents from "./_tb/TbContents.tsx";
 
 import AboutUsPage from "@/components/AboutUsPage";
+import Footer from "@/components/Footer.tsx";
 
 const MainComponent = () => {
   const { isMobileSite, /*isTabletSite,*/ isPcSite } = useMediaQueryContext();
@@ -25,6 +26,8 @@ const MainComponent = () => {
           <Route path="/" element={<SpContents />} />
           <Route path="/aboutus" element={<AboutUsPage />} />
         </Routes>
+
+        <Footer />
       </BrowserRouter>
     );
   } else if (isPcSite) {
@@ -36,6 +39,8 @@ const MainComponent = () => {
           <Route path="/" element={<PcContents />} />
           <Route path="/aboutus" element={<AboutUsPage />} />
         </Routes>
+
+        <Footer />
       </BrowserRouter>
     );
   } else {
@@ -47,6 +52,8 @@ const MainComponent = () => {
           <Route path="/" element={<TbContents />} />
           <Route path="/aboutus" element={<AboutUsPage />} />
         </Routes>
+
+        <Footer />
       </BrowserRouter>
     );
   }

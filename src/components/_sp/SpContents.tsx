@@ -130,7 +130,7 @@ const SpContents = () => {
     setSelect(e.target.value);
   const clearSelect = () => setSelect("営業終了時間が早い順　");
 
-  // ソートとチェックをクリア
+  // ソートとチェックをクリアkk
   const clear = () => {
     setGenre(GENRE_COLLECTION);
     setPrice(PRICE_COLLECTION);
@@ -154,7 +154,7 @@ const SpContents = () => {
   return (
     <>
       {/* ページ右部のフィルタ&ソート */}
-      <div className="text-black mx-12 my-8 px-6 py-4 rounded-md bg-green-200">
+      <div className="text-black mx-8 my-8 px-6 py-4 rounded-md bg-green-200">
         {/* フィルタアイコン */}
         <div className="flex">
           <img src={filter} alt="" className="w-5 h-5 mt-0.5" />

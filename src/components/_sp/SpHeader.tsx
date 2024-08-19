@@ -21,12 +21,12 @@ const SpHeader = () => {
       <header
         className={
           open
-            ? "flex items-center bg-green-100 w-full fixed top-0 z-10"
-            : "flex items-center bg-green-100 w-full"
+            ? "h-32 flex items-center bg-green-100 w-full fixed top-0 z-10"
+            : "h-32 flex items-center bg-green-100 w-full"
         }
       >
         <a href="/" className="w-4/5 flex justify-center transition">
-          <img src={logo} alt="" className="h-32 object-scale-down" />
+          <img src={logo} alt="" className="object-scale-down" />
         </a>
 
         <motion.button
@@ -81,6 +81,7 @@ const SpHeader = () => {
             <Link
               to="/"
               className="w-2/3 py-8 flex justify-center font-bold text-2xl border-y border-green-300 transition-opacity"
+              onClick={clickMenu}
             >
               TOP
             </Link>
@@ -88,6 +89,7 @@ const SpHeader = () => {
             <Link
               to="/aboutus"
               className="w-2/3 py-8 flex justify-center font-bold text-2xl border-b border-green-300 transition-opacity"
+              onClick={clickMenu}
             >
               ABOUT US
             </Link>
