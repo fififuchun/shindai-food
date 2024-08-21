@@ -91,7 +91,8 @@ const SpHeader = () => {
               className="w-2/3 py-8 flex justify-center font-bold text-2xl border-b border-green-300 transition-opacity"
               onClick={clickMenu}
             >
-              ABOUT US
+              <p>ABOUT&nbsp;</p>
+              <p>US</p>
             </Link>
           </motion.nav>
         </div>

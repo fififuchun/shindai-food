@@ -41,4 +41,11 @@ button:hover {
 
 body {
   overflow-x: hidden;
+  /* -webkit-appearance: none;
+  -webkit-text-size-adjust: 100%; */
+}
+
+* {
+  /* -webkit-appearance: none;
+  -webkit-text-size-adjust: 100%; */
 }

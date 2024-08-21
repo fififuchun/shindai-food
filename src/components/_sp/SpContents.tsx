@@ -338,7 +338,7 @@ const SpContents = () => {
 
         <div className="flex justify-center">
           <button
-            className="font-bold w-4/5 py-1 mr- rounded text-black border border-black"
+            className="font-bold w-4/5 py-1 rounded text-black border border-black"
             onClick={clear}
           >
             クリア

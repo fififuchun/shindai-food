@@ -7,7 +7,7 @@ export default function PcHeader() {
     <>
       <header className="flex items-center bg-green-100">
         <div className="w-2/3">
-          <a href="/" className="flex justify-center">
+          <a href="/" className="flex justify-center transition">
             <img src={logo} alt="" className="h-32 object-cover" />
           </a>
         </div>
