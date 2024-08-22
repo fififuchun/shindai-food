@@ -13,20 +13,18 @@ const SpHeader = () => {
   return (
     <>
       {open && (
-        <p className="bg-green-100 h-32 text-black font-bold items-center flex justify-center text-left">
-          見ないで!
-        </p>
+        <p className="bg-green-100 h-24 text-black font-bold items-center flex justify-center text-left"></p>
       )}
 
       <header
         className={
           open
-            ? "h-32 flex items-center bg-green-100 w-full fixed top-0 z-10"
-            : "h-32 flex items-center bg-green-100 w-full"
+            ? "h-24 flex items-center bg-green-100 w-full fixed top-0 z-10"
+            : "h-24 flex items-center bg-green-100 w-full"
         }
       >
         <a href="/" className="w-4/5 flex justify-center transition">
-          <img src={logo} alt="" className="object-scale-down" />
+          <img src={logo} alt="" className="h-24 object-scale-down" />
         </a>
 
         <motion.button
@@ -61,7 +59,7 @@ const SpHeader = () => {
           <p className="text-green-600 font-bold">{open ? "CLOSE" : "MENU"}</p>
         </motion.button>
 
-        <div className="fixed top-32">
+        <div className="fixed top-24">
           {/* 背景 */}
           {open && (
             <motion.button
@@ -87,7 +85,7 @@ const SpHeader = () => {
             </Link>
 
             <Link
-              to="/aboutus"
+              to="/about"
               className="w-2/3 py-8 flex justify-center font-bold text-2xl border-b border-green-300 transition-opacity"
               onClick={clickMenu}
             >

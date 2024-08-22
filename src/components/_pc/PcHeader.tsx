@@ -25,7 +25,7 @@ export default function PcHeader() {
 
             <li>
               <Link
-                to="/aboutus"
+                to="/about"
                 className="text-slate-950 font-bold text-2xl transition hover:opacity-40"
               >
                 ABOUT US

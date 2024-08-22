@@ -23,7 +23,12 @@ const TbContents = () => {
     for (let i = 0; i < Math.floor(score); i++) {
       list.push(<img src={star} alt="" key={i} />);
     }
-    return <li className="h-6 flex">{list}</li>;
+
+    return (
+      <li className="h-6 flex" style={{ width: score * 24 }}>
+        {list}
+      </li>
+    );
   };
 
   //valueを小数点scale位まで丸める

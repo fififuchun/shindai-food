@@ -5,9 +5,8 @@ import {
   PRICE_COLLECTION,
   TIME_COLLECTION,
 } from "@/components/List.tsx";
+import { Link } from "react-router-dom";
 
-// import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-// import AboutUsPage from "@/components/AboutUsPage";
 import "./PcContents.css";
 
 import img1 from "@/assets/1.png";
@@ -24,7 +23,12 @@ const PcContents = () => {
     for (let i = 0; i < Math.floor(score); i++) {
       list.push(<img src={star} alt="" key={i} />);
     }
-    return <li className="h-6 flex">{list}</li>;
+
+    return (
+      <li className="h-6 flex" style={{ width: score * 24 }}>
+        {list}
+      </li>
+    );
   };
 
   //valueを小数点scale位まで丸める
@@ -173,7 +177,7 @@ const PcContents = () => {
             return isGenre && isPrice && isTime;
           })
           .map((rest) => (
-            <a key={rest.Id} href="/denden">
+            <Link key={rest.Id} to={"/detail/" + rest.Id}>
               <div className="mt-8 pt-4 pl-4 pb-4 border-b flex content-center">
                 {/* 写真 */}
                 <div className="flex justify-center h-36 w-1/3">
@@ -232,174 +236,180 @@ const PcContents = () => {
                   </p>
                 </div>
               </div>
-            </a>
+            </Link>
           ))}
       </div>
 
       {/* ページ右部のフィルタ&ソート */}
-      <div className="text-black w-1/4 m-12 p-6 rounded-md bg-green-200">
-        {/* フィルタアイコン */}
-        <div className="flex">
-          <img src={filter} alt="" className="w-5 h-5 mt-0.5" />
-          <p className="font-bold pl-1">フィルタ</p>
-        </div>
+      <div className="flex flex-col w-1/3">
+        <div className="text-black m-8 p-6 rounded-md bg-green-200">
+          {/* フィルタアイコン */}
+          <div className="flex">
+            <img src={filter} alt="" className="w-5 h-5 mt-0.5" />
+            <p className="font-bold pl-1">フィルタ</p>
+          </div>
 
-        {/* フィルタ本体 */}
-        <ul className="pt-3 pb-12">
-          {/* フィルタ内部：ジャンル */}
-          <li className="flex pb-1 mb-6 border-b border-b-slate-600 items-center">
-            <p className="w-2/5 text-center font-bold">ジャンル</p>
+          {/* フィルタ本体 */}
+          <ul className="pt-3 pb-12">
+            {/* フィルタ内部：ジャンル */}
+            <li className="flex pb-1 mb-6 border-b border-b-slate-600 items-center">
+              <p className="w-2/5 text-center font-bold">ジャンル</p>
 
-            <div className="flex flex-col">
-              <div className="items-center pt-1">
-                {genre.map((genre) => {
-                  return (
-                    <div
-                      className="flex items-center mx-auto mt-0.5 bg-slate-00"
-                      key={genre.label}
-                    >
-                      <div className="flex">
-                        <input
-                          id={genre.label}
-                          type="checkbox"
-                          value={genre.label}
-                          checked={genre.checked}
-                          onChange={handleChangeGenre}
-                          className="w-5 h-5 appearance-none border cursor-pointer border-gray-300 rounded-md mr-2 hover:border-green-500 hover:bg-green-200 checked:bg-no-repeat checked:bg-center checked:border-green-600 checked:bg-green-300"
-                        />
-                      </div>
-                      <label
-                        htmlFor={genre.label}
-                        className="text-sm cursor-pointer text-gray-600 hover:opacity-70"
+              <div className="flex flex-col">
+                <div className="items-center pt-1">
+                  {genre.map((genre) => {
+                    return (
+                      <div
+                        className="flex items-center mx-auto mt-0.5 bg-slate-00"
+                        key={genre.label}
                       >
-                        {genre.value}
-                      </label>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </li>
-
-          {/* フィルタ内部：予算 */}
-          <li className="flex pb-1 mb-6 border-b border-b-slate-600 items-center">
-            <p className="w-2/5 text-center font-bold">予算</p>
-
-            <div className="flex flex-col">
-              <div className="items-center">
-                {price.map((price) => {
-                  return (
-                    <div
-                      className="flex items-center mx-auto mt-0.5"
-                      key={price.label}
-                    >
-                      <div className="flex">
-                        <input
-                          id={price.label}
-                          type="checkbox"
-                          value={price.label}
-                          checked={price.checked}
-                          onChange={handleChangePrice}
-                          className="w-5 h-5 appearance-none border cursor-pointer border-gray-300 rounded-md mr-2 hover:border-green-500 hover:bg-green-200 checked:bg-no-repeat checked:bg-center checked:border-green-600 checked:bg-green-300"
-                        />
+                        <div className="flex">
+                          <input
+                            id={genre.label}
+                            type="checkbox"
+                            value={genre.label}
+                            checked={genre.checked}
+                            onChange={handleChangeGenre}
+                            className="w-5 h-5 appearance-none border cursor-pointer border-gray-300 rounded-md mr-2 hover:border-green-500 hover:bg-green-200 checked:bg-no-repeat checked:bg-center checked:border-green-600 checked:bg-green-300"
+                          />
+                        </div>
+                        <label
+                          htmlFor={genre.label}
+                          className="text-sm cursor-pointer text-gray-600 hover:opacity-70"
+                        >
+                          {genre.value}
+                        </label>
                       </div>
-                      <label
-                        htmlFor={price.label}
-                        className="text-sm cursor-pointer text-gray-600 hover:opacity-70"
-                      >
-                        {price.value}
-                      </label>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </li>
-
-          {/* フィルタ内部：営業時間 */}
-          <li className="flex pb-1 mb-6 border-b border-b-slate-600 items-center">
-            <p className="w-2/5 text-center font-bold">営業時間</p>
-
-            <div className="flex flex-col">
-              <div className="items-center">
-                {time.map((time) => {
-                  return (
-                    <div
-                      className="flex items-center mx-auto mt-0.5"
-                      key={time.label}
-                    >
-                      <div className="flex">
-                        <input
-                          id={time.label}
-                          type="checkbox"
-                          value={time.label}
-                          checked={time.checked}
-                          onChange={handleChangeTime}
-                          className="w-5 h-5 appearance-none border cursor-pointer border-gray-300 rounded-md mr-2 hover:border-green-500 hover:bg-green-200 checked:bg-no-repeat checked:bg-center checked:border-green-600 checked:bg-green-300"
-                        />
-                      </div>
-                      <label
-                        htmlFor={time.label}
-                        className="text-sm cursor-pointer text-gray-600 hover:opacity-70"
-                      >
-                        {time.value}
-                      </label>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </li>
-        </ul>
-
-        {/* ソート */}
-        <div className="flex">
-          <img src={sort} alt="" className="w-5 h-6" />
-          <p className="font-bold pl-1">ソート</p>
-        </div>
-
-        <div className="p-1 mb-8 flex flex-col">
-          {/* ソートの子要素 */}
-          {SORT_COLLECTION.map((value) => {
-            return (
-              <div className="flex items-center mx-auto" key={value}>
-                <div className="flex">
-                  <input
-                    id={value}
-                    type="radio"
-                    name="sort"
-                    value={value}
-                    checked={select === value}
-                    onChange={onSelect}
-                    className="w-4 h-4 appearance-none border cursor-pointer border-black rounded-full mr-2 hover:border-green-500 checked:bg-center checked:border-green-600 checked:bg-green-600"
-                  />
-                  <div
-                    className="absolute w-1.5 h-1.5 bg-green-200 rounded-full"
-                    style={{ marginTop: 5, marginLeft: 5 }}
-                  ></div>
+                    );
+                  })}
                 </div>
-                <label
-                  htmlFor={value}
-                  className="text-sm cursor-pointer text-gray-600 hover:opacity-70"
-                >
-                  {value}
-                </label>
               </div>
-            );
-          })}
+            </li>
+
+            {/* フィルタ内部：予算 */}
+            <li className="flex pb-1 mb-6 border-b border-b-slate-600 items-center">
+              <p className="w-2/5 text-center font-bold">予算</p>
+
+              <div className="flex flex-col">
+                <div className="items-center">
+                  {price.map((price) => {
+                    return (
+                      <div
+                        className="flex items-center mx-auto mt-0.5"
+                        key={price.label}
+                      >
+                        <div className="flex">
+                          <input
+                            id={price.label}
+                            type="checkbox"
+                            value={price.label}
+                            checked={price.checked}
+                            onChange={handleChangePrice}
+                            className="w-5 h-5 appearance-none border cursor-pointer border-gray-300 rounded-md mr-2 hover:border-green-500 hover:bg-green-200 checked:bg-no-repeat checked:bg-center checked:border-green-600 checked:bg-green-300"
+                          />
+                        </div>
+                        <label
+                          htmlFor={price.label}
+                          className="text-sm cursor-pointer text-gray-600 hover:opacity-70"
+                        >
+                          {price.value}
+                        </label>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </li>
+
+            {/* フィルタ内部：営業時間 */}
+            <li className="flex pb-1 mb-6 border-b border-b-slate-600 items-center">
+              <p className="w-2/5 text-center font-bold">営業時間</p>
+
+              <div className="flex flex-col">
+                <div className="items-center">
+                  {time.map((time) => {
+                    return (
+                      <div
+                        className="flex items-center mx-auto mt-0.5"
+                        key={time.label}
+                      >
+                        <div className="flex">
+                          <input
+                            id={time.label}
+                            type="checkbox"
+                            value={time.label}
+                            checked={time.checked}
+                            onChange={handleChangeTime}
+                            className="w-5 h-5 appearance-none border cursor-pointer border-gray-300 rounded-md mr-2 hover:border-green-500 hover:bg-green-200 checked:bg-no-repeat checked:bg-center checked:border-green-600 checked:bg-green-300"
+                          />
+                        </div>
+                        <label
+                          htmlFor={time.label}
+                          className="text-sm cursor-pointer text-gray-600 hover:opacity-70"
+                        >
+                          {time.value}
+                        </label>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </li>
+          </ul>
+
+          {/* ソート */}
+          <div className="flex">
+            <img src={sort} alt="" className="w-5 h-6" />
+            <p className="font-bold pl-1">ソート</p>
+          </div>
+
+          <div className="p-1 mb-8 flex flex-col">
+            {/* ソートの子要素 */}
+            {SORT_COLLECTION.map((value) => {
+              return (
+                <div className="flex items-center mx-auto" key={value}>
+                  <div className="flex">
+                    <input
+                      id={value}
+                      type="radio"
+                      name="sort"
+                      value={value}
+                      checked={select === value}
+                      onChange={onSelect}
+                      className="w-4 h-4 appearance-none border cursor-pointer border-black rounded-full mr-2 hover:border-green-500 checked:bg-center checked:border-green-600 checked:bg-green-600"
+                    />
+                    <div
+                      className="absolute w-1.5 h-1.5 bg-green-200 rounded-full"
+                      style={{ marginTop: 5, marginLeft: 5 }}
+                    ></div>
+                  </div>
+                  <label
+                    htmlFor={value}
+                    className="text-sm cursor-pointer text-gray-600 hover:opacity-70"
+                  >
+                    {value}
+                  </label>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="flex justify-center">
+            <button
+              className="font-bold bg-orange-00 w-4/5 py-1 mr- rounded text-black border border-black"
+              onClick={clear}
+            >
+              クリア
+            </button>
+          </div>
         </div>
 
-        <div className="flex justify-center">
-          <button
-            className="font-bold bg-orange-00 w-4/5 py-1 mr- rounded text-black border border-black"
-            onClick={clear}
-          >
-            クリア
-          </button>
+        <div className="text-black bg-green-300 mx-8 my-4 h-40 flex justify-center items-center">
+          広告エリア
+        </div>
 
-          {/* <button className="font-bold bg-green-500 w-3/5 py-1 rounded text-white">
-            ソートする
-          </button> */}
+        <div className="text-black bg-green-300 mx-8 my-4 h-40 flex justify-center items-center">
+          ラーメン四天王紹介
         </div>
       </div>
     </div>

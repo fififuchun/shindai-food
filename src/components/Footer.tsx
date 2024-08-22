@@ -20,7 +20,7 @@ const Footer = () => {
           <li>&ensp;|&ensp;</li>
 
           <li>
-            <Link to="/aboutus" className="transition hover:opacity-40">
+            <Link to="/about" className="transition hover:opacity-40">
               ABOUT US
             </Link>
           </li>

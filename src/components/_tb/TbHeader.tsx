@@ -1,5 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import logo from "@/assets/shindaifood_logo.png";
+import { Link } from "react-router-dom";
 
 export default function PcHeader() {
   return (
@@ -14,22 +15,22 @@ export default function PcHeader() {
         <nav className="w-1/3">
           <ul className="flex justify-around">
             <li>
-              <a
-                href="/"
+              <Link
+                to="/"
                 className="text-slate-950 font-bold text-xl transition hover:opacity-40"
               >
                 TOP
-              </a>
+              </Link>
               {/* <Link to="/">TOP</Link> */}
             </li>
 
             <li>
-              <a
-                href="/aboutus"
+              <Link
+                to="/about"
                 className="text-slate-950 font-bold text-xl transition hover:opacity-40"
               >
                 ABOUT US
-              </a>
+              </Link>
               1{/* <Link to="/aboutus">ABOUT US</Link> */}
             </li>
           </ul>

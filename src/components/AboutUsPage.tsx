@@ -9,11 +9,12 @@ const AboutUsPage = () => {
 
   return (
     <>
-      <div className="h-2/3">
+      <div>
         <img
           src={about}
           alt=""
-          className="object-cover w-full h-2/3 flex justify-center absolute -z-10"
+          className="object-cover w-full flex justify-center absolute -z-10"
+          style={{ height: 600 }}
         />
 
         <div
@@ -38,7 +39,13 @@ const AboutUsPage = () => {
         </div>
       </div>
 
-      <div className="mt-32 text-black p-8">
+      <div
+        className={
+          isMobileSite || isPcSite
+            ? "mt-32 text-black p-8"
+            : "mt-36 text-black p-8"
+        }
+      >
         <h2 className="text-green-800 font-bold text-4xl border-b">FUTURE</h2>
         <p className="p-4">
           我々は「シンダイフード」や現在開発中の過去問ポータルサイトの運営を通じて、信大生のための価値創造を目指します
