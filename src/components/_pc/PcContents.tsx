@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   List,
+  changeTime,
   GENRE_COLLECTION,
   PRICE_COLLECTION,
   TIME_COLLECTION,
@@ -10,8 +11,8 @@ import { Link } from "react-router-dom";
 import "./PcContents.css";
 
 import img1 from "@/assets/1.png";
-import walk from "@/assets/walkIcon.png";
-import cycle from "@/assets/cycleIcon.png";
+import walk from "@/assets/walk.svg";
+import cycle from "@/assets/cycle.svg";
 import star from "@/assets/star.png";
 import sort from "@/assets/sort.png";
 import filter from "@/assets/filter.png";
@@ -123,9 +124,9 @@ const PcContents = () => {
     let copyList;
 
     if (select === "営業終了時間が早い順　")
-      copyList = [...List].sort((a, b) => a.Cycle - b.Cycle);
+      copyList = [...List].sort((a, b) => a.Distance - b.Distance);
     else if (select === "信大からの距離が近い順")
-      copyList = [...List].sort((a, b) => a.Cycle - b.Cycle);
+      copyList = [...List].sort((a, b) => a.Distance - b.Distance);
     else
       copyList = [...List].sort((a, b) => average(b.Score) - average(a.Score));
 
@@ -161,12 +162,13 @@ const PcContents = () => {
               }
 
             const isPrice: boolean =
-              (price[0].checked && rest.Score[2] <= 3) ||
-              (price[1].checked && rest.Score[2] >= 4);
+              (price[0].checked && rest.Score[2] >= 1) ||
+              (price[1].checked && rest.Score[2] <= 1);
 
             const d = new Date();
             const hour = d.getHours();
             const minute = d.getMinutes();
+            const day = d.getDay();
             const currentTime = hour * 100 + minute;
 
             const isTime =
@@ -174,7 +176,10 @@ const PcContents = () => {
               (time[1].checked && isOpened(rest.Opened, 1300)) ||
               (time[2].checked && isOpened(rest.Opened, 1900));
 
-            return isGenre && isPrice && isTime;
+            const isDay: boolean =
+              day === 0 ? rest.OpenedDay[6] : rest.OpenedDay[day - 1];
+
+            return isGenre && isPrice && isTime && isDay;
           })
           .map((rest) => (
             <Link key={rest.Id} to={"/detail/" + rest.Id}>
@@ -223,16 +228,31 @@ const PcContents = () => {
                   <div className="flex p-0.5">
                     <p className="text-black ml-8">信大から：</p>
 
-                    <img src={walk} alt="" className="w-6 h-6 mb-0" />
-                    <p className="text-black mb-0">{rest.Cycle * 3}分</p>
+                    <img src={walk} alt="" className="w-6 h-6" />
+                    <p className="text-black mb-0">
+                      {roundWithScale(rest.Distance / 70, 0)}分
+                    </p>
 
-                    <img src={cycle} alt="" className="w-6 h-6 ml-3 mb-0" />
-                    <p className="text-black mb-0">{rest.Cycle}分</p>
+                    <img src={cycle} alt="" className="w-6 h-6 ml-3" />
+                    <p className="text-black mb-0">
+                      {roundWithScale(rest.Distance / 250, 0)}分
+                    </p>
                   </div>
 
                   {/* 営業時間 */}
                   <p className="text-black ml-8 p-0.5 text-left">
-                    営業時間：〜21:00
+                    営業時間：
+                    {rest.Opened.length === 4
+                      ? changeTime(rest.Opened[0]) +
+                        "-" +
+                        changeTime(rest.Opened[1]) +
+                        "," +
+                        changeTime(rest.Opened[2]) +
+                        "-" +
+                        changeTime(rest.Opened[3])
+                      : changeTime(rest.Opened[0]) +
+                        "-" +
+                        changeTime(rest.Opened[1])}
                   </p>
                 </div>
               </div>

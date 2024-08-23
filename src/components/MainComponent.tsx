@@ -17,11 +17,34 @@ import NotFound from "./NotFound.tsx";
 import { List, GENRE_COLLECTION } from "./List.tsx";
 import "./Detail.css";
 
+import mapLogo from "@/assets/google-maps-logo-2020.svg";
+import arrow from "@/assets/detail.png";
+import star from "@/assets/star.png";
+import paypayLogo from "@/assets/paypay_logo.jpg";
+import creditIcon from "@/assets/creditCard_icon.png";
+import suicaIcon from "@/assets/suica_icon.png";
+import walk from "@/assets/walk.svg";
+import cycle from "@/assets/cycle.svg";
+
 const MainComponent = () => {
   const { isMobileSite, /*isTabletSite,*/ isPcSite } = useMediaQueryContext();
 
   function Detail() {
     const params = useParams();
+
+    //星をscoreの小数点切り捨て個出す
+    const starList = (score: number) => {
+      const list = [];
+      for (let i = 0; i < Math.floor(score); i++) {
+        list.push(<img src={star} key={i} />);
+      }
+
+      return (
+        <li className="h-5 flex" style={{ width: score * 20 }}>
+          {list}
+        </li>
+      );
+    };
 
     //valueを小数点scale位まで丸める
     const roundWithScale = (value: number, scale: number) => {
@@ -45,27 +68,63 @@ const MainComponent = () => {
       <>
         {List.map(
           (rest) =>
-            params.id === rest.Id && (
-              <div className="text-black flex flex-col m-10" key={rest.Id}>
+            (params.id === "debug" || params.id === rest.Id) && (
+              <div
+                className="text-black flex flex-col mx-5 my-10"
+                key={rest.Id}
+              >
                 <p className="my-2 text-2xl font-bold">{rest.Name}</p>
 
                 <table className="border-2 border-black">
                   <tr>
                     <th>総合評価</th>
-                    <td>{roundWithScale(average(rest.Score), 2)}</td>
+                    <td>
+                      <div className="flex items-center">
+                        {roundWithScale(average(rest.Score), 2)}&nbsp;
+                        {starList(
+                          roundWithScale(Math.floor(average(rest.Score)), 2)
+                        )}
+                        <img
+                          src={star}
+                          style={{
+                            width:
+                              (average(rest.Score) -
+                                Math.floor(average(rest.Score))) *
+                              20,
+                            height: 20,
+                          }}
+                          className="object-left object-cover"
+                        />
+                      </div>
+                    </td>
                   </tr>
 
                   <tr>
-                    <th rowSpan={3}>（内訳）</th>
-                    <td>味 {rest.Score[0]}</td>
+                    <th rowSpan={3}>(内訳)</th>
+                    <td>
+                      <div className="flex items-center">
+                        味&emsp;&emsp;{rest.Score[0]}&nbsp;
+                        {starList(roundWithScale(Math.floor(rest.Score[0]), 2))}
+                      </div>
+                    </td>
                   </tr>
 
                   <tr>
-                    <td>量 {rest.Score[1]}</td>
+                    <td>
+                      <div className="flex items-center">
+                        量&emsp;&emsp;{rest.Score[1]}&nbsp;
+                        {starList(roundWithScale(Math.floor(rest.Score[1]), 2))}
+                      </div>
+                    </td>
                   </tr>
 
                   <tr>
-                    <td>値段 {rest.Score[2]}</td>
+                    <td>
+                      <div className="flex items-center">
+                        値段&emsp;{rest.Score[2]}&nbsp;
+                        {starList(roundWithScale(Math.floor(rest.Score[2]), 2))}
+                      </div>
+                    </td>
                   </tr>
 
                   <tr>
@@ -73,25 +132,79 @@ const MainComponent = () => {
                     <td>
                       {(function () {
                         const list = [];
+
                         for (let i = 0; i < rest.Genre.length; i++) {
-                          list.push(
-                            <li>{GENRE_COLLECTION[rest.Genre[i]].value}</li>
-                          );
+                          if (i === rest.Genre.length - 1) {
+                            list.push(GENRE_COLLECTION[rest.Genre[i]].value);
+                          } else {
+                            list.push(
+                              GENRE_COLLECTION[rest.Genre[i]].value + "・"
+                            );
+                          }
                         }
-                        return <ul>{list}</ul>;
+
+                        return <div>{list}</div>;
                       })()}
                     </td>
                   </tr>
 
                   <tr>
                     <th>信大からの距離</th>
-                    {/* <td>徒歩{rest.Walk}分<a href={Map}>地図</a></td> */}
-                    <td>徒歩</td>
+                    <td>
+                      <div className="flex mt-1">
+                        <img src={walk} className="w-6" />
+                        {roundWithScale(rest.Distance / 70, 0)}
+                        分&nbsp;
+                        <img src={cycle} className="w-6" />
+                        {roundWithScale(rest.Distance / 250, 0)}分
+                      </div>
+
+                      <div className="border border-green-600 my-2 rounded-xl max-w-96">
+                        <a
+                          href={
+                            "https://www.google.co.jp/maps/search/" + rest.Map
+                          }
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          className="p-2 flex items-center"
+                        >
+                          <img src={mapLogo} className="w-1/3 max-w-12" />
+                          <p
+                            className={
+                              isMobileSite
+                                ? "w-3/5 ml-auto text-sm flex justify-center"
+                                : "w-3/5 ml-auto text-lg flex justify-center font-bold"
+                            }
+                          >
+                            地図で確認
+                          </p>
+                          <img
+                            src={arrow}
+                            className="w-1/12 ml-auto max-w-10 -rotate-90 flex justify-end"
+                          />
+                        </a>
+                      </div>
+                    </td>
                   </tr>
 
                   <tr>
-                    <th>支払方法</th>
-                    <td>{rest.Pay}</td>
+                    <th>現金以外の支払</th>
+                    <td>
+                      <div className="flex justify-around max-w-52">
+                        <div className="flex items-center">
+                          <img src={paypayLogo} className="h-8" />
+                          {rest.Pay[0] ? "⚪︎" : "×"}
+                        </div>
+                        <div className="flex items-center">
+                          <img src={creditIcon} className="h-8 mx-1" />
+                          {rest.Pay[1] ? "⚪︎" : "×"}
+                        </div>
+                        <div className="flex items-center">
+                          <img src={suicaIcon} className="h-8 mx-1" />
+                          {rest.Pay[2] ? "⚪︎" : "×"}
+                        </div>
+                      </div>
+                    </td>
                   </tr>
 
                   <tr>
@@ -103,10 +216,28 @@ const MainComponent = () => {
                     <th>駐輪場</th>
                     <td>{rest.Parking[1] ? "あり" : "なし"}</td>
                   </tr>
+
+                  <tr>
+                    <th>クーポン</th>
+                    <td>{rest.Coupon === "" ? "実装準備中" : rest.Coupon}</td>
+                  </tr>
                 </table>
               </div>
             )
         )}
+
+        <div className="text-black flex flex-col justify-center items-center text-lg">
+          各種お問い合わせ・異議申し立ては下記
+          <a
+            className="font-bold transition"
+            href="https://x.com/FuchunGames"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            FuchunGames公式X
+          </a>
+          のDMで受け付けております
+        </div>
       </>
     );
   }

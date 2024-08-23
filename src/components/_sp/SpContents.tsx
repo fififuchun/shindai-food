@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import {
   List,
+  changeTime,
   GENRE_COLLECTION,
   PRICE_COLLECTION,
   TIME_COLLECTION,
@@ -9,19 +10,20 @@ import {
 import { motion } from "framer-motion";
 
 import img1 from "@/assets/1.png";
-import walk from "@/assets/walkIcon.png";
-import cycle from "@/assets/cycleIcon.png";
+import walk from "@/assets/walk.svg";
+import cycle from "@/assets/cycle.svg";
 import star from "@/assets/star.png";
 import sort from "@/assets/sort.png";
 import filter from "@/assets/filter.png";
 import detailArrow from "@/assets/detail.png";
+import { Link } from "react-router-dom";
 
 const SpContents = () => {
   //星をscoreの小数点切り捨て個出す
   const starList = (score: number) => {
     const list = [];
     for (let i = 0; i < Math.floor(score); i++) {
-      list.push(<img src={star} alt="" key={i} />);
+      list.push(<img src={star} key={i} />);
     }
 
     return (
@@ -121,9 +123,9 @@ const SpContents = () => {
     let copyList;
 
     if (select === "営業終了時間が早い順　")
-      copyList = [...List].sort((a, b) => a.Cycle - b.Cycle);
+      copyList = [...List].sort((a, b) => a.Distance - b.Distance);
     else if (select === "信大からの距離が近い順")
-      copyList = [...List].sort((a, b) => a.Cycle - b.Cycle);
+      copyList = [...List].sort((a, b) => a.Distance - b.Distance);
     else
       copyList = [...List].sort((a, b) => average(b.Score) - average(a.Score));
 
@@ -167,7 +169,7 @@ const SpContents = () => {
         </div>
 
         {/* フィルタ本体 */}
-        {/* <ul> */}
+
         {/* フィルタ内部：ジャンル */}
         <li className="flex pb-1 mb-4 border-b border-b-slate-600 items-center">
           <p className="w-2/5 text-center font-bold">ジャンル</p>
@@ -276,7 +278,6 @@ const SpContents = () => {
             </li>
           </div>
         )}
-        {/* </ul> */}
 
         <div className="flex justify-center mb-6">
           <motion.button
@@ -285,7 +286,6 @@ const SpContents = () => {
           >
             <motion.img
               src={detailArrow}
-              alt=""
               className="w-6 mr-2"
               animate={{ rotate: filterDetail ? 180 : 0 }}
             />
@@ -295,7 +295,7 @@ const SpContents = () => {
 
         {/* ソート */}
         <div className="flex items-center mb-">
-          <img src={sort} alt="" className="w-5 h-6" />
+          <img src={sort} className="w-5 h-6" />
           <p className="font-bold pl-1">ソート</p>
 
           {/* <div className="w-3/4 ml-auto">
@@ -362,12 +362,13 @@ const SpContents = () => {
               }
 
             const isPrice: boolean =
-              (price[0].checked && rest.Score[2] <= 3) ||
-              (price[1].checked && rest.Score[2] >= 4);
+              (price[0].checked && rest.Score[2] >= 1) ||
+              (price[1].checked && rest.Score[2] <= 1);
 
             const d = new Date();
             const hour = d.getHours();
             const minute = d.getMinutes();
+            const day = d.getDay();
             const currentTime = hour * 100 + minute;
 
             const isTime =
@@ -375,10 +376,13 @@ const SpContents = () => {
               (time[1].checked && isOpened(rest.Opened, 1300)) ||
               (time[2].checked && isOpened(rest.Opened, 1900));
 
-            return isGenre && isPrice && isTime;
+            const isDay: boolean =
+              day === 0 ? rest.OpenedDay[6] : rest.OpenedDay[day - 1];
+
+            return isGenre && isPrice && isTime && isDay;
           })
           .map((rest) => (
-            <a key={rest.Id} href={"/" + rest.Id}>
+            <Link key={rest.Id} to={"/detail/" + rest.Id}>
               <div className="mt-4 mb-8 pl-4 border-b content-center">
                 <div className="flex">
                   <h3 className="mr-4 font-bold flex items-center text-xl text-green-700">
@@ -398,7 +402,6 @@ const SpContents = () => {
                     {/* 小数点の星 */}
                     <img
                       src={star}
-                      alt=""
                       style={{
                         width:
                           (average(rest.Score) -
@@ -406,21 +409,17 @@ const SpContents = () => {
                           24,
                         height: 24,
                       }}
-                      className="object-left object-cover m-0 p-0"
+                      className="object-left object-cover"
                     />
                   </div>
                 </div>
 
                 <div className="flex">
                   {/* 写真 */}
-                  <img
-                    src={img1}
-                    alt=""
-                    className="w-1/3 my-3 object-scale-down"
-                  />
+                  <img src={img1} className="w-1/3 my-3 object-scale-down" />
 
                   {/* 右部店舗情報 */}
-                  <div className="pl- flex flex-col justify-center text-black text-sm">
+                  <div className="flex flex-col justify-center text-black text-sm">
                     {/* ジャンル */}
                     <p className="ml-4 p-0.5 text-left">
                       ジャンル：{genreArray(rest.Genre)}
@@ -431,18 +430,33 @@ const SpContents = () => {
                       <p>信大から：</p>
 
                       <img src={walk} alt="" className="w-5 h-5" />
-                      <p>{rest.Cycle * 3}分</p>
+                      <p>{roundWithScale(rest.Distance / 70, 0)}分</p>
 
                       <img src={cycle} alt="" className="w-5 h-5 ml-3" />
-                      <p>{rest.Cycle}分</p>
+                      <p>{roundWithScale(rest.Distance / 250, 0)}分</p>
                     </div>
 
                     {/* 営業時間 */}
-                    <p className="ml-4 p-0.5 text-left">営業時間：〜21:00</p>
+                    <p className="ml-4 p-0.5 text-left flex items-center">
+                      営業時間：
+                      <span className="text-xs">
+                        {rest.Opened.length === 4
+                          ? changeTime(rest.Opened[0]) +
+                            "-" +
+                            changeTime(rest.Opened[1]) +
+                            "," +
+                            changeTime(rest.Opened[2]) +
+                            "-" +
+                            changeTime(rest.Opened[3])
+                          : changeTime(rest.Opened[0]) +
+                            "-" +
+                            changeTime(rest.Opened[1])}
+                      </span>
+                    </p>
                   </div>
                 </div>
               </div>
-            </a>
+            </Link>
           ))}
       </div>
     </>

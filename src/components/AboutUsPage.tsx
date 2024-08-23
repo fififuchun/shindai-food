@@ -9,6 +9,7 @@ const AboutUsPage = () => {
 
   return (
     <>
+      {/* <div className="text-black">sample</div> */}
       <div>
         <img
           src={about}
