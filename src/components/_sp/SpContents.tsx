@@ -9,7 +9,6 @@ import {
 } from "@/components/List.tsx";
 import { motion } from "framer-motion";
 
-import img1 from "@/assets/1.png";
 import walk from "@/assets/walk.svg";
 import cycle from "@/assets/cycle.svg";
 import star from "@/assets/star.png";
@@ -104,6 +103,13 @@ const SpContents = () => {
   //チェック・営業時間
   const [time, setTime] = useState(TIME_COLLECTION);
   const handleChangeTime = (e: { target: { value: string } }) => {
+    if (select === "営業終了時間が早い順　" && e.target.value !== "currently") {
+      alert(
+        "現在営業中以外の飲食店を検索する時は「営業終了時間が早い順」以外を選択してください！"
+      );
+      return;
+    }
+
     const newTimes = time.map((_time) => {
       const newTime = { ..._time };
       if (newTime.label === e.target.value) newTime.checked = !_time.checked;
@@ -122,9 +128,11 @@ const SpContents = () => {
   const sortList = () => {
     let copyList;
 
-    if (select === "営業終了時間が早い順　")
-      copyList = [...List].sort((a, b) => a.Distance - b.Distance);
-    else if (select === "信大からの距離が近い順")
+    if (select === "営業終了時間が早い順　") {
+      copyList = [...List].sort(
+        (a, b) => closeTime(a.Opened) - closeTime(b.Opened)
+      );
+    } else if (select === "信大からの距離が近い順")
       copyList = [...List].sort((a, b) => a.Distance - b.Distance);
     else
       copyList = [...List].sort((a, b) => average(b.Score) - average(a.Score));
@@ -132,9 +140,29 @@ const SpContents = () => {
     return copyList;
   };
 
+  const closeTime = (opened: number[]) => {
+    const d = new Date();
+    const hour = d.getHours();
+    const minute = d.getMinutes();
+    const currentTime = hour * 100 + minute;
+
+    if (opened.length === 2 || opened.length === 4) {
+      if (opened[0] < currentTime && currentTime < opened[1]) return opened[1];
+      else if (opened[2] < currentTime && currentTime < opened[3])
+        return opened[3];
+      else return 0;
+    } else {
+      return 0;
+    }
+  };
+
   const [select, setSelect] = useState("営業終了時間が早い順　");
-  const onSelect = (e: { target: { value: React.SetStateAction<string> } }) =>
+  const onSelect = (e: { target: { value: React.SetStateAction<string> } }) => {
+    //現在営業中以外が選択されている状態で"営業終了時間が早い順"が選択されたら営業時間の選択をリセットする
+    if (e.target.value === "営業終了時間が早い順　") setTime(TIME_COLLECTION);
+
     setSelect(e.target.value);
+  };
   const clearSelect = () => setSelect("営業終了時間が早い順　");
 
   // ソートとチェックをクリア
@@ -416,18 +444,21 @@ const SpContents = () => {
 
                 <div className="flex">
                   {/* 写真 */}
-                  <img src={img1} className="w-1/3 my-3 object-scale-down" />
+                  <img
+                    src={"/photos/" + rest.Id + ".png"}
+                    className="w-1/3 my-3 object-scale-down"
+                  />
 
                   {/* 右部店舗情報 */}
                   <div className="flex flex-col justify-center text-black text-sm">
                     {/* ジャンル */}
                     <p className="ml-4 p-0.5 text-left">
-                      ジャンル：{genreArray(rest.Genre)}
+                      ジャンル:&nbsp;{genreArray(rest.Genre)}
                     </p>
 
                     {/* 距離 */}
                     <div className="flex p-0.5 ml-4">
-                      <p>信大から：</p>
+                      <p>信大から:&nbsp;</p>
 
                       <img src={walk} alt="" className="w-5 h-5" />
                       <p>{roundWithScale(rest.Distance / 70, 0)}分</p>
@@ -438,7 +469,7 @@ const SpContents = () => {
 
                     {/* 営業時間 */}
                     <p className="ml-4 p-0.5 text-left flex items-center">
-                      営業時間：
+                      営業時間:&nbsp;
                       <span className="text-xs">
                         {rest.Opened.length === 4
                           ? changeTime(rest.Opened[0]) +

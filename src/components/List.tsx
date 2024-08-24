@@ -58,7 +58,7 @@ function changeTime(time: number) {
 // Map:       GoogleMapの検索ワード
 // Pay:       [PayPay,クレカ,電子マネー]
 // Parking:   [駐車場,駐輪場]
-// Coupon:    Twiterへのリンク？？
+// Coupon:    Coupon[0]:クーポンがあるか、その詳細 / Coupon[1]:それに付随するリンク
 
 const List = [
   {
@@ -72,7 +72,7 @@ const List = [
     Map: "でんでん",
     Pay: [true, false, false],
     Parking: [true, true],
-    Coupon: "あり",
+    Coupon: ["Twitterフォローで選べるクーポン", " https://x.com/dendenreiji"],
   },
   {
     Name: "満月や",
@@ -85,7 +85,7 @@ const List = [
     Map: "満月や",
     Pay: [true, false, false],
     Parking: [true, true],
-    Coupon: "",
+    Coupon: ["なし", ""],
   },
   {
     Name: "メーヤウ桐",
@@ -98,7 +98,7 @@ const List = [
     Map: "メーヤウ 桐店",
     Pay: [false, false, false],
     Parking: [true, true],
-    Coupon: "",
+    Coupon: ["なし", ""],
   },
   {
     Name: "メーヤウ信大前",
@@ -111,7 +111,7 @@ const List = [
     Map: "メーヤウ 信大前店",
     Pay: [false, false, false],
     Parking: [false, false],
-    Coupon: "",
+    Coupon: ["なし", ""],
   },
   {
     Name: "麺匠佐蔵",
@@ -122,9 +122,9 @@ const List = [
     Opened: [1130, 1500, 1730, 2200],
     OpenedDay: [true, true, true, true, true, true, true],
     Map: "麺匠佐蔵",
-    Pay: [true, false, false],
+    Pay: [false, false, false],
     Parking: [true, false],
-    Coupon: "",
+    Coupon: ["なし", ""],
   },
   {
     Name: "がったぼうず",
@@ -137,20 +137,20 @@ const List = [
     Map: "がったぼうず",
     Pay: [true, false, false],
     Parking: [true, true],
-    Coupon: "",
+    Coupon: ["なし", ""],
   },
   {
     Name: "そらや",
     Id: "soraya",
     Genre: [1],
     Score: [5, 4, 3],
-    Distance: 1400,
+    Distance: 800,
     Opened: [1100, 1430, 1700, 2100],
     OpenedDay: [true, true, true, true, true, true, true],
     Map: "札幌らーめん そらや",
     Pay: [false, false, false],
     Parking: [true, true],
-    Coupon: "",
+    Coupon: ["なし", ""],
   },
   {
     Name: "がねいしゃ",
@@ -163,7 +163,7 @@ const List = [
     Map: "がねいしゃ",
     Pay: [true, false, false],
     Parking: [false, false],
-    Coupon: "",
+    Coupon: ["なし", ""],
   },
   {
     Name: "龍華楼",
@@ -176,7 +176,7 @@ const List = [
     Map: "龍華楼",
     Pay: [true, false, false],
     Parking: [true, true],
-    Coupon: "",
+    Coupon: ["なし", ""],
   },
   {
     Name: "麺51",
@@ -189,7 +189,10 @@ const List = [
     Map: "麺51",
     Pay: [false, false, false],
     Parking: [true, true],
-    Coupon: "",
+    Coupon: [
+      "毎月1の付く日は麺の大盛り変更無料・毎月5の付く日はトッピングサービス・毎月15日は麺の大盛り変更orトッピングサービス",
+      "https://x.com/men_51_",
+    ],
   },
   {
     Name: "おおぼし桐",
@@ -202,7 +205,7 @@ const List = [
     Map: "おおぼし 松本桐店",
     Pay: [false, false, false],
     Parking: [true, true],
-    Coupon: "",
+    Coupon: ["学生証提示で麺大盛り無料", ""],
   },
   {
     Name: "Ecru",
@@ -215,7 +218,7 @@ const List = [
     Map: "パン焼き工房エクリュ",
     Pay: [false, false, false],
     Parking: [true, true],
-    Coupon: "",
+    Coupon: ["なし", ""],
   },
   {
     Name: "紅葉",
@@ -225,10 +228,10 @@ const List = [
     Distance: 1600,
     Opened: [1100, 1430, 1700, 2300],
     OpenedDay: [true, true, true, true, true, true, true],
-    Map: "紅葉",
+    Map: "紅葉 松本市 中華",
     Pay: [false, false, false],
     Parking: [true, true],
-    Coupon: "",
+    Coupon: ["なし", ""],
   },
   {
     Name: "潮騒",
@@ -241,7 +244,7 @@ const List = [
     Map: "潮騒",
     Pay: [false, false, false],
     Parking: [true, true],
-    Coupon: "",
+    Coupon: ["なし", ""],
   },
   {
     Name: "どん八",
@@ -254,7 +257,7 @@ const List = [
     Map: "海鮮丼どん八 松本駅前本店",
     Pay: [true, true, true],
     Parking: [true, true],
-    Coupon: "",
+    Coupon: ["なし", ""],
   },
   {
     Name: "河昌",
@@ -267,20 +270,20 @@ const List = [
     Map: "河昌",
     Pay: [false, false, false],
     Parking: [true, true],
-    Coupon: "",
+    Coupon: ["なし", ""],
   },
   {
-    Name: "楽座",
+    Name: "そば打ち楽座",
     Id: "rakuza",
     Genre: [3],
     Score: [5, 4, 4],
     Distance: 1200,
     Opened: [1100, 1900],
     OpenedDay: [true, true, true, true, true, true, true],
-    Map: "らくざ",
+    Map: "そば打ち楽座",
     Pay: [false, false, false],
     Parking: [true, true],
-    Coupon: "",
+    Coupon: ["なし", ""],
   },
   {
     Name: "ピカドン",
@@ -293,7 +296,7 @@ const List = [
     Map: "ピカドン",
     Pay: [false, false, false],
     Parking: [true, false],
-    Coupon: "",
+    Coupon: ["なし", ""],
   },
   {
     Name: "テンホウ",
@@ -306,7 +309,7 @@ const List = [
     Map: "テンホウ松本追分店",
     Pay: [true, true, true],
     Parking: [true, true],
-    Coupon: "",
+    Coupon: ["学生証提示で次回使えるクーポン券", ""],
   },
   {
     Name: "まんま",
@@ -332,7 +335,7 @@ const List = [
     Map: "まんぷく亭 松本",
     Pay: [false, false, false],
     Parking: [true, true],
-    Coupon: "",
+    Coupon: ["なし", ""],
   },
   {
     Name: "ビストロ鬼平",
@@ -345,7 +348,7 @@ const List = [
     Map: "ビストロ鬼平",
     Pay: [false, false, false],
     Parking: [true, true],
-    Coupon: "",
+    Coupon: ["なし", ""],
   },
   {
     Name: "鎌倉パスタ",
@@ -358,7 +361,7 @@ const List = [
     Map: "鎌倉パスタ イオンモール松本店",
     Pay: [false, true, false],
     Parking: [true, true],
-    Coupon: "",
+    Coupon: ["なし", ""],
   },
   {
     Name: "DOLCE/かつ富",
@@ -371,8 +374,34 @@ const List = [
     Map: "DOLCE かつ富",
     Pay: [true, false, false],
     Parking: [true, true],
-    Coupon: "",
+    Coupon: ["なし", ""],
   },
+  {
+    Name: "かとむら",
+    Id: "katomura",
+    Genre: [1],
+    Score: [5, 4, 3],
+    Distance: 850,
+    Opened: [1130, 1430, 1730, 2100],
+    OpenedDay: [true, true, true, true, true, true, true],
+    Map: "かとむら 浅間",
+    Pay: [true, false, false],
+    Parking: [true, true],
+    Coupon: ["学生証提示でトッピング無料", ""],
+  },
+  // {
+  //   Name: "すき家",
+  //   Id: "katomura",
+  //   Genre: [1],
+  //   Score: [5, 4, 3],
+  //   Distance: 850,
+  //   Opened: [1130, 1430, 1730, 2100],
+  //   OpenedDay: [true, true, true, true, true, true, true],
+  //   Map: "かとむら 浅間",
+  //   Pay: [true, false, false],
+  //   Parking: [true, true],
+  //   Coupon: ["学生証提示でトッピング無料", ""],
+  // },
   // {
   //   Name: "",
   //   Id: "",
@@ -384,7 +413,7 @@ const List = [
   //   Map: "",
   //   Pay: [true, false, false],
   //   Parking: [true, true],
-  //   Coupon: "",
+  //   Coupon: ["なし", ""],
   // },
 ];
 

@@ -25,6 +25,7 @@ import creditIcon from "@/assets/creditCard_icon.png";
 import suicaIcon from "@/assets/suica_icon.png";
 import walk from "@/assets/walk.svg";
 import cycle from "@/assets/cycle.svg";
+import coupon from "@/assets/coupon.png";
 
 const MainComponent = () => {
   const { isMobileSite, /*isTabletSite,*/ isPcSite } = useMediaQueryContext();
@@ -61,9 +62,6 @@ const MainComponent = () => {
       return sum;
     };
 
-    // Googleマップへのリンク
-    // const Map = "https://www.google.co.jp/maps/search/" + rest.Map;
-
     return (
       <>
         {List.map(
@@ -74,6 +72,12 @@ const MainComponent = () => {
                 key={rest.Id}
               >
                 <p className="my-2 text-2xl font-bold">{rest.Name}</p>
+
+                <img
+                  src={"/photos/" + rest.Id + ".png"}
+                  alt={rest.Id}
+                  className="h-48 p-3 object-scale-down flex mr-auto rounded-3xl"
+                />
 
                 <table className="border-2 border-black">
                   <tr>
@@ -219,7 +223,28 @@ const MainComponent = () => {
 
                   <tr>
                     <th>クーポン</th>
-                    <td>{rest.Coupon === "" ? "実装準備中" : rest.Coupon}</td>
+                    <td>
+                      <div className="flex flex-col">
+                        {rest.Coupon[0] === "" ? "現在調査中" : rest.Coupon[0]}
+                        {rest.Coupon[1] === "" ? (
+                          ""
+                        ) : (
+                          <a
+                            href={rest.Coupon[1]}
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            className="text-blue-800 flex items-center transition font-bold"
+                          >
+                            <img
+                              src={coupon}
+                              alt="coupon"
+                              className="h-6 mx-2"
+                            />
+                            クーポンはこちら
+                          </a>
+                        )}
+                      </div>
+                    </td>
                   </tr>
                 </table>
               </div>
