@@ -16,6 +16,7 @@ import cycle from "@/assets/cycle.svg";
 import star from "@/assets/star.png";
 import sort from "@/assets/sort.png";
 import filter from "@/assets/filter.png";
+import oji from "@/assets/oji.png";
 
 const PcContents = () => {
   //星をscoreの小数点切り捨て個出す
@@ -120,8 +121,8 @@ const PcContents = () => {
 
   //ソート
   const SORT_COLLECTION = [
-    "営業終了時間が早い順　",
     "信大からの距離が近い順",
+    "営業終了時間が早い順　",
     "評価が高い順　　　　　",
   ];
 
@@ -158,14 +159,14 @@ const PcContents = () => {
     }
   };
 
-  const [select, setSelect] = useState("営業終了時間が早い順　");
+  const [select, setSelect] = useState("信大からの距離が近い順");
   const onSelect = (e: { target: { value: React.SetStateAction<string> } }) => {
     //現在営業中以外が選択されている状態で"営業終了時間が早い順"が選択されたら営業時間の選択をリセットする
     if (e.target.value === "営業終了時間が早い順　") setTime(TIME_COLLECTION);
 
     setSelect(e.target.value);
   };
-  const clearSelect = () => setSelect("営業終了時間が早い順　");
+  const clearSelect = () => setSelect("信大からの距離が近い順");
 
   // ソートとチェックをクリア
   const clear = () => {
@@ -174,6 +175,9 @@ const PcContents = () => {
     setTime(TIME_COLLECTION);
     clearSelect();
   };
+
+  //条件を満たす飲食店の数
+  let count = 0;
 
   //-----------------------------------------------------------
   //-----------------------------------------------------------
@@ -191,8 +195,8 @@ const PcContents = () => {
               }
 
             const isPrice: boolean =
-              (price[0].checked && rest.Score[2] >= 1) ||
-              (price[1].checked && rest.Score[2] <= 1);
+              (price[0].checked && rest.Score[2] >= 3) ||
+              (price[1].checked && rest.Score[2] <= 2);
 
             const d = new Date();
             const hour = d.getHours();
@@ -208,11 +212,20 @@ const PcContents = () => {
             const isDay: boolean =
               day === 0 ? rest.OpenedDay[6] : rest.OpenedDay[day - 1];
 
-            return isGenre && isPrice && isTime && isDay;
+            const isShop =
+              isGenre &&
+              isPrice &&
+              isTime &&
+              (isDay || time[1].checked || time[2].checked);
+
+            if (isShop) count++;
+            // console.log(count);
+
+            return isShop;
           })
           .map((rest) => (
             <Link key={rest.Id} to={"/detail/" + rest.Id}>
-              <div className="mt-8 pt-4 pl-4 pb-4 border-b flex content-center">
+              <div className="mt-8 py-4 pl-4 border-b flex content-center">
                 {/* 写真 */}
                 <div className="flex justify-center h-36 w-1/3">
                   <img
@@ -289,6 +302,13 @@ const PcContents = () => {
               </div>
             </Link>
           ))}
+        {count === 0 && (
+          <div className="mt-8 py-4 pl-4 flex flex-col items-center text-xl text-black font-bold">
+            <img src={oji} alt="おじさん" className="w-1/4" />
+            <p>条件に合う飲食店がありません！</p>
+            <p>フィルタの内容を見直してください！</p>
+          </div>
+        )}
       </div>
 
       {/* ページ右部のフィルタ&ソート */}

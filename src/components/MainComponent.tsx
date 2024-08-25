@@ -197,15 +197,30 @@ const MainComponent = () => {
                       <div className="flex justify-around max-w-52">
                         <div className="flex items-center">
                           <img src={paypayLogo} className="h-8" />
-                          {rest.Pay[0] ? "⚪︎" : "×"}
+                          {/* {rest.Pay[0] ? "⚪︎" : "×"} */}
+                          {rest.Pay[0] === null
+                            ? "?"
+                            : rest.Pay[0]
+                            ? "⚪︎"
+                            : "×"}
                         </div>
                         <div className="flex items-center">
                           <img src={creditIcon} className="h-8 mx-1" />
-                          {rest.Pay[1] ? "⚪︎" : "×"}
+                          {/* {rest.Pay[1] ? "⚪︎" : "×"} */}
+                          {rest.Pay[1] === null
+                            ? "?"
+                            : rest.Pay[1]
+                            ? "⚪︎"
+                            : "×"}
                         </div>
                         <div className="flex items-center">
                           <img src={suicaIcon} className="h-8 mx-1" />
-                          {rest.Pay[2] ? "⚪︎" : "×"}
+                          {/* {rest.Pay[2] ? "⚪︎" : "×"} */}
+                          {rest.Pay[2] === null
+                            ? "?"
+                            : rest.Pay[2]
+                            ? "⚪︎"
+                            : "×"}
                         </div>
                       </div>
                     </td>
@@ -222,7 +237,7 @@ const MainComponent = () => {
                   </tr>
 
                   <tr>
-                    <th>クーポン</th>
+                    <th>学生クーポン</th>
                     <td>
                       <div className="flex flex-col">
                         {rest.Coupon[0] === "" ? "現在調査中" : rest.Coupon[0]}
