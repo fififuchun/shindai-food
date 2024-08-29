@@ -393,10 +393,11 @@ const SpContents = () => {
               (price[1].checked && rest.Score[2] <= 2);
 
             const d = new Date();
-            const hour = d.getHours();
-            const minute = d.getMinutes();
+            // const hour = d.getHours();
+            // const minute = d.getMinutes();
             const day = d.getDay();
-            const currentTime = hour * 100 + minute;
+            // const currentTime = hour * 100 + minute;
+            const currentTime = 1930;
 
             const isTime =
               (time[0].checked && isOpened(rest.Opened, currentTime)) ||
