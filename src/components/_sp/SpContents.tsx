@@ -393,11 +393,11 @@ const SpContents = () => {
               (price[1].checked && rest.Score[2] <= 2);
 
             const d = new Date();
-            // const hour = d.getHours();
-            // const minute = d.getMinutes();
+            const hour = d.getHours();
+            const minute = d.getMinutes();
             const day = d.getDay();
-            // const currentTime = hour * 100 + minute;
-            const currentTime = 1930;
+            const currentTime = hour * 100 + minute;
+            // const currentTime = 1930;
 
             const isTime =
               (time[0].checked && isOpened(rest.Opened, currentTime)) ||
@@ -454,7 +454,7 @@ const SpContents = () => {
                 <div className="flex">
                   {/* 写真 */}
                   <img
-                    src={"/photos/" + rest.Id + ".png"}
+                    src={"/compressed_photos/" + rest.Id + ".webp"}
                     className="w-1/3 my-3 object-scale-down"
                   />
 

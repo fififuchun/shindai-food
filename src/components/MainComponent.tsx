@@ -18,14 +18,14 @@ import { List, GENRE_COLLECTION } from "./List.tsx";
 import "./Detail.css";
 
 import mapLogo from "@/assets/google-maps-logo-2020.svg";
-import arrow from "@/assets/detail.png";
-import star from "@/assets/star.png";
+import arrow from "@/assets/detail.webp";
+import star from "@/assets/star.webp";
 import paypayLogo from "@/assets/paypay_logo.jpg";
-import creditIcon from "@/assets/creditCard_icon.png";
-import suicaIcon from "@/assets/suica_icon.png";
+import creditIcon from "@/assets/creditCard_icon.webp";
+import suicaIcon from "@/assets/suica_icon.webp";
 import walk from "@/assets/walk.svg";
 import cycle from "@/assets/cycle.svg";
-import coupon from "@/assets/coupon.png";
+import coupon from "@/assets/coupon.webp";
 
 const MainComponent = () => {
   const { isMobileSite, /*isTabletSite,*/ isPcSite } = useMediaQueryContext();
@@ -74,7 +74,7 @@ const MainComponent = () => {
                 <p className="my-2 text-2xl font-bold">{rest.Name}</p>
 
                 <img
-                  src={"/photos/" + rest.Id + ".png"}
+                  src={"/compressed_photos/" + rest.Id + ".webp"}
                   alt={rest.Id}
                   className="h-48 p-3 object-scale-down flex mr-auto rounded-3xl"
                 />

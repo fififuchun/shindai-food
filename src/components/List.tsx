@@ -29,8 +29,8 @@ const PRICE_COLLECTION = [
 
 const TIME_COLLECTION = [
   /* 0 */ { label: "currently", value: "現在営業中", checked: true },
-  /* 1 */ { label: "lunch", value: "ランチ", checked: true },
-  /* 2 */ { label: "dinner", value: "ディナー", checked: true },
+  /* 1 */ { label: "lunch", value: "ランチ", checked: false },
+  /* 2 */ { label: "dinner", value: "ディナー", checked: false },
 ];
 
 function changeTime(time: number) {

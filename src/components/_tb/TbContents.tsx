@@ -395,11 +395,11 @@ const TbContents = () => {
               (price[1].checked && rest.Score[2] <= 2);
 
             const d = new Date();
-            // const hour = d.getHours();
-            // const minute = d.getMinutes();
+            const hour = d.getHours();
+            const minute = d.getMinutes();
             const day = d.getDay();
-            // const currentTime = hour * 100 + minute;
-            const currentTime = 1930;
+            const currentTime = hour * 100 + minute;
+            // const currentTime = 1930;
 
             const isTime =
               (time[0].checked && isOpened(rest.Opened, currentTime)) ||
@@ -457,7 +457,7 @@ const TbContents = () => {
                 <div className="flex bg-slate-00">
                   {/* 写真 */}
                   <img
-                    src={"/photos/" + rest.Id + ".png"}
+                    src={"/compressed_photos/" + rest.Id + ".webp"}
                     alt="star"
                     className="h-28 w-1/3 object-scale-down"
                   />

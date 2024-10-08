@@ -1,7 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import about from "@/assets/abouts/about.jpg";
-import phase from "@/assets/abouts/PhaseImage.png";
-import formIcon from "@/assets/googleForm_Icon.png";
+import phase from "@/assets/abouts/PhaseImage.webp";
+import formIcon from "@/assets/googleForm_Icon.webp";
 import { useMediaQueryContext } from "@/components/Provider/MediaQueryProvider";
 
 const AboutUsPage = () => {
