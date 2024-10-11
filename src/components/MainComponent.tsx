@@ -12,6 +12,7 @@ import TbHeader from "./_tb/TbHeader.tsx";
 import TbContents from "./_tb/TbContents.tsx";
 
 import AboutUsPage from "@/components/AboutUsPage";
+import Library from "@/components/Library";
 import Footer from "@/components/Footer.tsx";
 import NotFound from "./NotFound.tsx";
 import { List, GENRE_COLLECTION } from "./List.tsx";
@@ -293,6 +294,7 @@ const MainComponent = () => {
           <Route path="/detail" element={<Detail />}>
             <Route path=":id" element={<Detail />} />
           </Route>
+          <Route path="/lib" element={<Library placeNum={0} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 
@@ -310,6 +312,7 @@ const MainComponent = () => {
           <Route path="/detail" element={<Detail />}>
             <Route path=":id" element={<Detail />} />
           </Route>
+          <Route path="/lib" element={<Library placeNum={0} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 
@@ -327,6 +330,7 @@ const MainComponent = () => {
           <Route path="/detail" element={<Detail />}>
             <Route path=":id" element={<Detail />} />
           </Route>
+          <Route path="/lib" element={<Library placeNum={0} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 
