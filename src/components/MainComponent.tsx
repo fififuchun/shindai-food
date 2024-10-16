@@ -294,7 +294,7 @@ const MainComponent = () => {
           <Route path="/detail" element={<Detail />}>
             <Route path=":id" element={<Detail />} />
           </Route>
-          <Route path="/lib" element={<Library placeNum={0} />} />
+          <Route path="/lib" element={<Library />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 
@@ -312,7 +312,7 @@ const MainComponent = () => {
           <Route path="/detail" element={<Detail />}>
             <Route path=":id" element={<Detail />} />
           </Route>
-          <Route path="/lib" element={<Library placeNum={0} />} />
+          <Route path="/lib" element={<Library />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 
@@ -330,7 +330,7 @@ const MainComponent = () => {
           <Route path="/detail" element={<Detail />}>
             <Route path=":id" element={<Detail />} />
           </Route>
-          <Route path="/lib" element={<Library placeNum={0} />} />
+          <Route path="/lib" element={<Library />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 
