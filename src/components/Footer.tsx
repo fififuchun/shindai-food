@@ -1,7 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { Link } from "react-router-dom";
-import kento from "@/assets/kento_icon.png";
-import logo from "@/assets/logo-black.png";
+import kento from "@/assets/kento_icon.webp";
+import logo from "@/assets/logo-black.webp";
 // import { useMediaQueryContext } from "@/components/Provider/MediaQueryProvider";
 
 const Footer = () => {

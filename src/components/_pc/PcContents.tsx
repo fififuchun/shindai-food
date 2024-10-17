@@ -11,12 +11,11 @@ import { Link } from "react-router-dom";
 import "./PcContents.css";
 
 import walk from "@/assets/walk.svg";
-// import walk2 from "./../../assets/photos/1.png";
 import cycle from "@/assets/cycle.svg";
-import star from "@/assets/star.png";
-import sort from "@/assets/sort.png";
-import filter from "@/assets/filter.png";
-import oji from "@/assets/oji.png";
+import star from "@/assets/star.webp";
+import sort from "@/assets/sort.webp";
+import filter from "@/assets/filter.webp";
+import oji from "@/assets/oji.webp";
 
 const PcContents = () => {
   //星をscoreの小数点切り捨て個出す

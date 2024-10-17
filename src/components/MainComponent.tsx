@@ -21,7 +21,7 @@ import "./Detail.css";
 import mapLogo from "@/assets/google-maps-logo-2020.svg";
 import arrow from "@/assets/detail.webp";
 import star from "@/assets/star.webp";
-import paypayLogo from "@/assets/paypay_logo.jpg";
+import paypayLogo from "@/assets/paypay_logo.webp";
 import creditIcon from "@/assets/creditCard_icon.webp";
 import suicaIcon from "@/assets/suica_icon.webp";
 import walk from "@/assets/walk.svg";
@@ -197,7 +197,7 @@ const MainComponent = () => {
                     <td>
                       <div className="flex justify-around max-w-52">
                         <div className="flex items-center">
-                          <img src={paypayLogo} className="h-8" />
+                          <img src={paypayLogo} className="h-10" />
                           {/* {rest.Pay[0] ? "⚪︎" : "×"} */}
                           {rest.Pay[0] === null
                             ? "?"

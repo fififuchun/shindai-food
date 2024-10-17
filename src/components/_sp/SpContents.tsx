@@ -12,11 +12,11 @@ import { Link } from "react-router-dom";
 
 import walk from "@/assets/walk.svg";
 import cycle from "@/assets/cycle.svg";
-import star from "@/assets/star.png";
-import sort from "@/assets/sort.png";
-import filter from "@/assets/filter.png";
-import detailArrow from "@/assets/detail.png";
-import oji from "@/assets/oji.png";
+import star from "@/assets/star.webp";
+import sort from "@/assets/sort.webp";
+import filter from "@/assets/filter.webp";
+import detailArrow from "@/assets/detail.webp";
+import oji from "@/assets/oji.webp";
 
 const SpContents = () => {
   //星をscoreの小数点切り捨て個出す

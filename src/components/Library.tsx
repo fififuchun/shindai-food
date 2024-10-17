@@ -1,7 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
-import React /*, { useEffect, useState }*/ from "react";
+import React, { useState } from "react";
 import Data_matsumoto from "@/json/calendar_matsumoto.json";
-// import { number, string } from "prop-types";
 
 // 時間
 interface Time {
@@ -71,6 +70,14 @@ const Library: React.FC = () => {
     },
   ];
 
+  // 読み込み中かを判別
+  const [loading, setLoading] = useState(true);
+
+  // iframe の onLoad で読み込み完了を検知
+  const handleLoad = () => {
+    setLoading(false);
+  };
+
   return (
     <>
       <div className="flex flex-col my-10 items-center">
@@ -85,25 +92,35 @@ const Library: React.FC = () => {
             {day}の中央図書館の開館時間は{openTime?.join("-")}です
           </p>
 
-          <p className="flex">
+          <div className="flex">
             本日の計測予定時間は
             {timeList
               .filter((time) => {
                 return parseNum(time) < parseNum(closeTime);
               })
               .map((time) => (
-                <div key={time.hours}>
+                <span key={time.hours}>
                   {parseStr(time)}
                   {time.hours == 15 ? "(土日祝なら14:30)" : ""}
                   {time.hours !== 21 ? "," : ""}
-                </div>
+                </span>
               ))}
             です
-          </p>
+          </div>
         </div>
 
-        <div className="my-5">
-          <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR6bwX6f1tltiaviiSq1JAeTSy8_kqDj4LE-10ZSFfXXRR72jamrzaZ5FGTUEAxrzhZGZKbBnAQj22c/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+        <div className="w-80 h-60 my-5 flex justify-center items-center">
+          <iframe
+            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR6bwX6f1tltiaviiSq1JAeTSy8_kqDj4LE-10ZSFfXXRR72jamrzaZ5FGTUEAxrzhZGZKbBnAQj22c/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"
+            className="flex items-center w-full h-full"
+            onLoad={handleLoad}
+            style={{ display: loading ? "none" : "block" }}
+          ></iframe>
+          {loading && (
+            <div className="text-black text-2xl font-bold">
+              混雑状況を読み込み中...
+            </div>
+          )}
         </div>
       </div>
     </>
