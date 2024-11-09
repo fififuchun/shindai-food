@@ -795,17 +795,30 @@ const List = [
     Coupon: ["なし", ""],
   },
   {
-    Name: "",
-    Id: "",
-    Genre: [],
-    Score: [0, 0, 0],
-    Distance: 0,
-    Opened: [0, 0],
+    Name: "焼肉きんぐ",
+    Id: "yakinikuking",
+    Genre: [0, 5],
+    Score: [4, 5, 1],
+    Distance: 2600,
+    Opened: [1700, 2300],
     OpenedDay: [true, true, true, true, true, true, true],
-    Map: "",
+    Map: "焼肉きんぐ　松本あがた店",
     Pay: [true, false, false],
     Parking: [true, true],
     Coupon: ["なし", ""],
+  },
+  {
+    Name: "ヒマラヤンレストラン",
+    Id: "himarayanrestaurant",
+    Genre: [0, 3],
+    Score: [4, 4, 3],
+    Distance: 500,
+    Opened: [1100, 1500, 1700, 2230],
+    OpenedDay: [true, true, true, true, true, true, true],
+    Map: "ヒマラヤンレストラン",
+    Pay: [true, false, false],
+    Parking: [false, true],
+    Coupon: ["学生の方はナン3枚までおかわりできるメニューあり", ""],
   },
 
   // 浅間の謎のインド料理や
@@ -814,13 +827,12 @@ const List = [
   // リガーハウス
   // キッチン南海
   // 浅間のカフェ
-
   {
-    Name: "焼肉キング",
-    Id: "yakinikuking",
-    Genre: [5],
+    Name: "",
+    Id: "",
+    Genre: [],
     Score: [0, 0, 0],
-    Distance: 2600,
+    Distance: 0,
     Opened: [0, 0],
     OpenedDay: [true, true, true, true, true, true, true],
     Map: "",
