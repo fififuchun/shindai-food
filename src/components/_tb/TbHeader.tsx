@@ -1,5 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
-import logo from "@/assets/shindaifood_logo.webp";
+import logo from "@/assets/logo/logo_shindaifood.webp";
 import { Link } from "react-router-dom";
 
 export default function PcHeader() {

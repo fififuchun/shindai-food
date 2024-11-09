@@ -80,10 +80,19 @@ const PcContents = () => {
   //-----------------------------------------------------------
   //チェック・ジャンル
   const [genre, setGenre] = useState(GENRE_COLLECTION);
-  const handleChangeGenre = (e: { target: { value: string } }) => {
+  // const handleChangeGenre = (e: { target: { value: string } }) => {
+  //   const newGenres = genre.map((_genre) => {
+  //     const newGenre = { ..._genre };
+  //     if (newGenre.label === e.target.value) newGenre.checked = !_genre.checked;
+  //     return newGenre;
+  //   });
+  //   setGenre(newGenres);
+  // };
+
+  const handleChangeGenre = (label: string) => {
     const newGenres = genre.map((_genre) => {
       const newGenre = { ..._genre };
-      if (newGenre.label === e.target.value) newGenre.checked = !_genre.checked;
+      if (newGenre.label === label) newGenre.checked = !_genre.checked;
       return newGenre;
     });
     setGenre(newGenres);
@@ -91,10 +100,19 @@ const PcContents = () => {
 
   //チェック・予算
   const [price, setPrice] = useState(PRICE_COLLECTION);
-  const handleChangePrice = (e: { target: { value: string } }) => {
+  // const handleChangePrice = (e: { target: { value: string } }) => {
+  //   const newPrices = price.map((_price) => {
+  //     const newPrice = { ..._price };
+  //     if (newPrice.label === e.target.value) newPrice.checked = !_price.checked;
+  //     return newPrice;
+  //   });
+  //   setPrice(newPrices);
+  // };
+
+  const handleChangePrice = (label: string) => {
     const newPrices = price.map((_price) => {
       const newPrice = { ..._price };
-      if (newPrice.label === e.target.value) newPrice.checked = !_price.checked;
+      if (newPrice.label === label) newPrice.checked = !_price.checked;
       return newPrice;
     });
     setPrice(newPrices);
@@ -102,8 +120,24 @@ const PcContents = () => {
 
   //チェック・営業時間
   const [time, setTime] = useState(TIME_COLLECTION);
-  const handleChangeTime = (e: { target: { value: string } }) => {
-    if (select === "営業終了時間が早い順　" && e.target.value !== "currently") {
+  // const handleChangeTime = (e: { target: { value: string } }) => {
+  //   if (select === "営業終了時間が早い順" && e.target.value !== "currently") {
+  //     alert(
+  //       "現在営業中以外の飲食店を検索する時は「営業終了時間が早い順」以外を選択してください！"
+  //     );
+  //     return;
+  //   }
+
+  //   const newTimes = time.map((_time) => {
+  //     const newTime = { ..._time };
+  //     if (newTime.label === e.target.value) newTime.checked = !_time.checked;
+  //     return newTime;
+  //   });
+  //   setTime(newTimes);
+  // };
+
+  const handleChangeTime = (label: string) => {
+    if (select === "営業終了時間が早い順　" && label !== "currently") {
       alert(
         "現在営業中以外の飲食店を検索する時は「営業終了時間が早い順」以外を選択してください！"
       );
@@ -112,7 +146,7 @@ const PcContents = () => {
 
     const newTimes = time.map((_time) => {
       const newTime = { ..._time };
-      if (newTime.label === e.target.value) newTime.checked = !_time.checked;
+      if (newTime.label === label) newTime.checked = !_time.checked;
       return newTime;
     });
     setTime(newTimes);
@@ -184,6 +218,78 @@ const PcContents = () => {
   return (
     <div className="flex">
       <div className="w-2/3 pl-12">
+        <div className="flex mt-5 text-white">
+          <p className="font-bold text-green-700 mr-3 my-1 flex whitespace-nowrap">
+            ジャンル：
+          </p>
+
+          <div className="flex flex-wrap">
+            {genre
+              .filter((genre) => genre.checked)
+              .map((genre) => (
+                <button
+                  className="bg-green-500 rounded-full pl-5 pr-7 hover:line-through mr-3 my-1 transition"
+                  key={genre.label}
+                  onClick={() => handleChangeGenre(genre.label)}
+                >
+                  <p className="flex items-center font-bold">
+                    {genre.value}
+                    <div className="w-3 h-0.5 rotate-45 bg-white ml-3"></div>
+                    <div className="w-3 h-0.5 -rotate-45 bg-white -mx-3"></div>
+                  </p>
+                </button>
+              ))}
+          </div>
+        </div>
+
+        <div className="flex mt-2 text-white">
+          <p className="font-bold text-green-700 mr-3 my-1 flex whitespace-nowrap">
+            予算：
+          </p>
+
+          <div className="flex flex-wrap">
+            {price
+              .filter((price) => price.checked)
+              .map((price) => (
+                <button
+                  className="bg-green-500 rounded-full pl-5 pr-7 hover:line-through mr-3 my-1 transition"
+                  key={price.label}
+                  onClick={() => handleChangePrice(price.label)}
+                >
+                  <p className="flex items-center font-bold">
+                    {price.value}
+                    <div className="w-3 h-0.5 rotate-45 bg-white ml-3"></div>
+                    <div className="w-3 h-0.5 -rotate-45 bg-white -mx-3"></div>
+                  </p>
+                </button>
+              ))}
+          </div>
+        </div>
+
+        <div className="flex mt-2 text-white">
+          <p className="font-bold text-green-700 mr-3 my-1 flex whitespace-nowrap">
+            営業時間：
+          </p>
+
+          <div className="flex flex-wrap">
+            {time
+              .filter((time) => time.checked)
+              .map((time) => (
+                <button
+                  className="bg-green-500 rounded-full pl-5 pr-7 hover:line-through mr-3 my-1 transition"
+                  key={time.label}
+                  onClick={() => handleChangeTime(time.label)}
+                >
+                  <p className="flex items-center font-bold">
+                    {time.value}
+                    <div className="w-3 h-0.5 rotate-45 bg-white ml-3"></div>
+                    <div className="w-3 h-0.5 -rotate-45 bg-white -mx-3"></div>
+                  </p>
+                </button>
+              ))}
+          </div>
+        </div>
+
         {sortList()
           .filter((rest) => {
             let isGenre: boolean = false;
@@ -340,7 +446,7 @@ const PcContents = () => {
                             type="checkbox"
                             value={genre.label}
                             checked={genre.checked}
-                            onChange={handleChangeGenre}
+                            onClick={() => handleChangeGenre(genre.label)}
                             className="w-5 h-5 appearance-none border cursor-pointer border-gray-300 rounded-md mr-2 hover:border-green-500 hover:bg-green-200 checked:bg-no-repeat checked:bg-center checked:border-green-600 checked:bg-green-300"
                           />
                         </div>
@@ -375,7 +481,7 @@ const PcContents = () => {
                             type="checkbox"
                             value={price.label}
                             checked={price.checked}
-                            onChange={handleChangePrice}
+                            onClick={() => handleChangePrice(price.label)}
                             className="w-5 h-5 appearance-none border cursor-pointer border-gray-300 rounded-md mr-2 hover:border-green-500 hover:bg-green-200 checked:bg-no-repeat checked:bg-center checked:border-green-600 checked:bg-green-300"
                           />
                         </div>
@@ -410,7 +516,7 @@ const PcContents = () => {
                             type="checkbox"
                             value={time.label}
                             checked={time.checked}
-                            onChange={handleChangeTime}
+                            onClick={() => handleChangeTime(time.label)}
                             className="w-5 h-5 appearance-none border cursor-pointer border-gray-300 rounded-md mr-2 hover:border-green-500 hover:bg-green-200 checked:bg-no-repeat checked:bg-center checked:border-green-600 checked:bg-green-300"
                           />
                         </div>

@@ -2,6 +2,19 @@
 import { useMediaQueryContext } from "@/components/Provider/MediaQueryProvider";
 import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
 
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
+
 import SpHeader from "./_sp/SpHeader.tsx";
 import SpContents from "./_sp/SpContents.tsx";
 
@@ -27,6 +40,7 @@ import suicaIcon from "@/assets/suica_icon.webp";
 import walk from "@/assets/walk.svg";
 import cycle from "@/assets/cycle.svg";
 import coupon from "@/assets/coupon.webp";
+import Career from "./Career.tsx";
 
 const MainComponent = () => {
   const { isMobileSite, /*isTabletSite,*/ isPcSite } = useMediaQueryContext();
@@ -286,6 +300,7 @@ const MainComponent = () => {
   if (isMobileSite) {
     return (
       <BrowserRouter>
+        <ScrollToTop />
         <SpHeader />
 
         <Routes>
@@ -295,6 +310,7 @@ const MainComponent = () => {
             <Route path=":id" element={<Detail />} />
           </Route>
           <Route path="/lib" element={<Library />} />
+          <Route path="/career" element={<Career />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 
@@ -304,6 +320,7 @@ const MainComponent = () => {
   } else if (isPcSite) {
     return (
       <BrowserRouter>
+        <ScrollToTop />
         <PcHeader />
 
         <Routes>
@@ -313,6 +330,7 @@ const MainComponent = () => {
             <Route path=":id" element={<Detail />} />
           </Route>
           <Route path="/lib" element={<Library />} />
+          <Route path="/career" element={<Career />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 
@@ -322,6 +340,7 @@ const MainComponent = () => {
   } else {
     return (
       <BrowserRouter>
+        <ScrollToTop />
         <TbHeader />
 
         <Routes>
@@ -331,6 +350,7 @@ const MainComponent = () => {
             <Route path=":id" element={<Detail />} />
           </Route>
           <Route path="/lib" element={<Library />} />
+          <Route path="/career" element={<Career />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 

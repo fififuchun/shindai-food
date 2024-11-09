@@ -1,6 +1,14 @@
 /* eslint-disable react/react-in-jsx-scope */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Data_matsumoto from "@/json/calendar_matsumoto.json";
+// import lib1_0 from "@/assets/lib/lib_1_0.webp";
+// import lib1_1 from "@/assets/lib/lib_1_1.webp";
+// import lib2_0 from "@/assets/lib/lib_2_0.webp";
+// import lib2_1 from "@/assets/lib/lib_2_1.webp";
+// import lib3_0 from "@/assets/lib/lib_3_0.webp";
+// import lib3_1 from "@/assets/lib/lib_3_1.webp";
+// import lib3_2 from "@/assets/lib/lib_3_2.webp";
+// import lib3_3 from "@/assets/lib/lib_3_3.webp";
 
 // 時間
 interface Time {
@@ -72,11 +80,29 @@ const Library: React.FC = () => {
 
   // 読み込み中かを判別
   const [loading, setLoading] = useState(true);
-
   // iframe の onLoad で読み込み完了を検知
   const handleLoad = () => {
     setLoading(false);
   };
+
+  // 現在の横幅
+  const [width, setWidth] = useState(
+    window.innerWidth > 500 ? 500 : window.innerWidth
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 500) setWidth(500);
+      else setWidth(window.innerWidth);
+    };
+
+    // リスナーを追加
+    window.addEventListener("resize", handleResize);
+    // クリーンアップ関数
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <>
@@ -101,23 +127,56 @@ const Library: React.FC = () => {
               .map((time) => (
                 <span key={time.hours}>
                   {parseStr(time)}
-                  {time.hours == 15 ? "(土日祝なら14:30)" : ""}
-                  {time.hours !== 21 ? "," : ""}
+                  {time.hours == 15 && time.minutes == 0
+                    ? "(土日祝なら14:30)"
+                    : ""}
+                  {time.hours === timeList[timeList.length - 1].hours &&
+                  time.minutes === timeList[timeList.length - 1].minutes
+                    ? ""
+                    : ","}
                 </span>
               ))}
             です
           </div>
         </div>
 
-        <div className="w-80 h-60 my-5 flex justify-center items-center">
+        {/* ボーダー */}
+        <div className="border border-b-0 w-lvw"></div>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: `${width}px`, // 親要素の幅
+            height: `${(width * 1700) / 460}px`, // 高さを適切に設定
+            overflow: "hidden", // スクロールバーを隠す
+            position: "relative", // 相対位置を指定
+          }}
+        >
           <iframe
             src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR6bwX6f1tltiaviiSq1JAeTSy8_kqDj4LE-10ZSFfXXRR72jamrzaZ5FGTUEAxrzhZGZKbBnAQj22c/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"
-            className="flex items-center w-full h-full"
             onLoad={handleLoad}
-            style={{ display: loading ? "none" : "block" }}
+            style={{
+              display: loading ? "none" : "block",
+              width: `${46000 / width}%`,
+              height: `${46000 / width}%`,
+              transform: `scale(${width / 460})`,
+              transformOrigin: "top left", // 縮小の基準点を左上に
+              position: "absolute", // 親のdivを基準に絶対位置
+              left: 10,
+              top: 10,
+            }}
           ></iframe>
           {loading && (
-            <div className="text-black text-2xl font-bold">
+            <div
+              style={{
+                color: "black",
+                fontSize: "1.5rem",
+                fontWeight: "bold",
+                margin: "10 0 auto 0",
+              }}
+            >
               混雑状況を読み込み中...
             </div>
           )}
