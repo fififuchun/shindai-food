@@ -10,8 +10,9 @@ import {
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
-import walk from "@/assets/walk.svg";
-import cycle from "@/assets/cycle.svg";
+import walk from "@/assets/walk.webp";
+import cycle from "@/assets/cycle.webp";
+import close from "@/assets/close.webp";
 import star from "@/assets/star.webp";
 import sort from "@/assets/sort.webp";
 import filter from "@/assets/filter.webp";
@@ -199,14 +200,13 @@ const TbContents = () => {
               .filter((genre) => genre.checked)
               .map((genre) => (
                 <button
-                  className="bg-green-500 rounded-full pl-5 pr-7 hover:line-through mr-3 my-1 transition"
+                  className="bg-green-500 rounded-full pl-5 pr-4 hover:line-through mr-3 my-1 transition"
                   key={genre.label}
                   onClick={() => handleChangeGenre(genre.label)}
                 >
                   <p className="flex items-center font-bold">
                     {genre.value}
-                    <div className="w-3 h-0.5 rotate-45 bg-white ml-3"></div>
-                    <div className="w-3 h-0.5 -rotate-45 bg-white -mx-3"></div>
+                    <img src={close} alt="" className="h-3 w-3 ml-3" />
                   </p>
                 </button>
               ))}
@@ -223,14 +223,13 @@ const TbContents = () => {
               .filter((price) => price.checked)
               .map((price) => (
                 <button
-                  className="bg-green-500 rounded-full pl-5 pr-7 hover:line-through mr-3 my-1 transition"
+                  className="bg-green-500 rounded-full pl-5 pr-4 hover:line-through mr-3 my-1 transition"
                   key={price.label}
                   onClick={() => handleChangePrice(price.label)}
                 >
                   <p className="flex items-center font-bold">
                     {price.value}
-                    <div className="w-3 h-0.5 rotate-45 bg-white ml-3"></div>
-                    <div className="w-3 h-0.5 -rotate-45 bg-white -mx-3"></div>
+                    <img src={close} alt="" className="h-3 w-3 ml-3" />
                   </p>
                 </button>
               ))}
@@ -247,14 +246,13 @@ const TbContents = () => {
               .filter((time) => time.checked)
               .map((time) => (
                 <button
-                  className="bg-green-500 rounded-full pl-5 pr-7 hover:line-through mr-3 my-1 transition"
+                  className="bg-green-500 rounded-full pl-5 pr-4 hover:line-through mr-3 my-1 transition"
                   key={time.label}
                   onClick={() => handleChangeTime(time.label)}
                 >
                   <p className="flex items-center font-bold">
                     {time.value}
-                    <div className="w-3 h-0.5 rotate-45 bg-white ml-3"></div>
-                    <div className="w-3 h-0.5 -rotate-45 bg-white -mx-3"></div>
+                    <img src={close} alt="" className="h-3 w-3 ml-3" />
                   </p>
                 </button>
               ))}

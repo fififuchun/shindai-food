@@ -1,14 +1,11 @@
 /* eslint-disable react/react-in-jsx-scope */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Data_matsumoto from "@/json/calendar_matsumoto.json";
-// import lib1_0 from "@/assets/lib/lib_1_0.webp";
-// import lib1_1 from "@/assets/lib/lib_1_1.webp";
-// import lib2_0 from "@/assets/lib/lib_2_0.webp";
-// import lib2_1 from "@/assets/lib/lib_2_1.webp";
-// import lib3_0 from "@/assets/lib/lib_3_0.webp";
-// import lib3_1 from "@/assets/lib/lib_3_1.webp";
-// import lib3_2 from "@/assets/lib/lib_3_2.webp";
-// import lib3_3 from "@/assets/lib/lib_3_3.webp";
+
+import sample_lib from "@/assets/lib/sample_library.webp";
+// import show_0_0 from "@/assets/lib/library_congestion_show_0_0.webp";
+// import show_0_1 from "@/assets/lib/library_congestion_show_0_1.webp";
+// import show_0_2 from "@/assets/lib/library_congestion_show_0_2.webp";
 
 // 時間
 interface Time {
@@ -85,22 +82,28 @@ const Library: React.FC = () => {
     setLoading(false);
   };
 
-  // 現在の横幅
-  const [width, setWidth] = useState(
-    window.innerWidth > 500 ? 500 : window.innerWidth
-  );
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
 
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 500) setWidth(500);
-      else setWidth(window.innerWidth);
+    const updateScale = () => {
+      if (containerRef.current) {
+        const parentWidth = containerRef.current.offsetWidth;
+        setScale(parentWidth / 450); // 450は固定サイズ
+      }
     };
 
-    // リスナーを追加
-    window.addEventListener("resize", handleResize);
-    // クリーンアップ関数
+    // 初回実行
+    updateScale();
+
+    // ResizeObserverで親要素のリサイズを監視
+    const resizeObserver = new ResizeObserver(updateScale);
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
+    }
+
     return () => {
-      window.removeEventListener("resize", handleResize);
+      resizeObserver.disconnect();
     };
   }, []);
 
@@ -111,7 +114,80 @@ const Library: React.FC = () => {
           <p>テストディレクトリ</p>
         </div>
 
-        <p className="my-5 text-black">現在開発中の機能です</p>
+        <p className="mb-40 mt-5 text-black">現在開発中の機能です</p>
+
+        <div className="px-6 md:flex w-full bg-slate-00">
+          <p className="text-black content-center text-center font-bold text-5xl md:w-1/2">
+            カレンダー
+          </p>
+
+          <div className="md:w-1/2 max-w-[450px] justify-center bg-slate-200">
+            <img src={sample_lib} alt="サンプル画像" className="mt-5" />
+
+            <div
+              ref={containerRef}
+              style={{
+                position: "relative",
+                width: "100%",
+                height: 0,
+                paddingBottom: "50%",
+                margin: "20px 0 20px 0",
+              }}
+            >
+              <iframe
+                src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTslqizbdpWZRdB-tfxJdwsupzJYUk36kPvRySnqH8rSRER5Jc99x1bH0AuhmTBmuGBgQ9IqmIoBxlP/pubhtml?gid=1208272682&amp;single=true&amp;widget=true&amp;headers=false"
+                style={{
+                  position: "absolute",
+                  width: `${100 / scale}%`,
+                  height: `${100 / scale}%`,
+                  transform: `scale(${scale})`,
+                  transformOrigin: "top left",
+                }}
+                onLoad={handleLoad}
+              />
+              {loading && (
+                <div
+                  style={{
+                    color: "black",
+                    fontSize: "1.5rem",
+                    fontWeight: "bold",
+                    margin: "10 0 auto 0",
+                  }}
+                >
+                  混雑状況を読み込み中...
+                </div>
+              )}
+            </div>
+
+            {/* <p>{scale}</p> */}
+
+            {/* <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTslqizbdpWZRdB-tfxJdwsupzJYUk36kPvRySnqH8rSRER5Jc99x1bH0AuhmTBmuGBgQ9IqmIoBxlP/pubhtml?gid=1208272682&amp;single=true&amp;widget=true&amp;headers=false"></iframe> */}
+
+            {/* <img src={show_0_0} alt="" className="mb-5" />
+            <img src={show_0_1} alt="" className="my-5" />
+            <img src={show_0_2} alt="" className="my-5" /> */}
+          </div>
+        </div>
+
+        {/* <div className="bg-slate-200">
+          <div>
+            <iframe
+              // className="w-full h-[210px] mb-5"
+              style={{
+                display: loading ? "none" : "block",
+                width: `${46000 / width}%`,
+                height: `${46000 / width}%`,
+                transform: `scale(${width / 460})`,
+                transformOrigin: "top left", // 縮小の基準点を左上に
+                position: "absolute", // 親のdivを基準に絶対位置
+                left: 0,
+                top: 0,
+              }}
+              onLoad={handleLoad}
+              src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTslqizbdpWZRdB-tfxJdwsupzJYUk36kPvRySnqH8rSRER5Jc99x1bH0AuhmTBmuGBgQ9IqmIoBxlP/pubhtml?gid=1208272682&amp;single=true&amp;widget=true&amp;headers=false"
+            ></iframe>
+          </div>
+        </div> */}
 
         <div className="my-5 text-black flex flex-col items-center">
           <p>
@@ -141,9 +217,9 @@ const Library: React.FC = () => {
         </div>
 
         {/* ボーダー */}
-        <div className="border border-b-0 w-lvw"></div>
+        {/* <div className="border border-b-0 w-lvw"></div> */}
 
-        <div
+        {/* <div
           style={{
             display: "flex",
             justifyContent: "center",
@@ -180,7 +256,7 @@ const Library: React.FC = () => {
               混雑状況を読み込み中...
             </div>
           )}
-        </div>
+        </div> */}
       </div>
     </>
   );

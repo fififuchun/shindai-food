@@ -37,8 +37,8 @@ import star from "@/assets/star.webp";
 import paypayLogo from "@/assets/paypay_logo.webp";
 import creditIcon from "@/assets/creditCard_icon.webp";
 import suicaIcon from "@/assets/suica_icon.webp";
-import walk from "@/assets/walk.svg";
-import cycle from "@/assets/cycle.svg";
+import walk from "@/assets/walk.webp";
+import cycle from "@/assets/cycle.webp";
 import coupon from "@/assets/coupon.webp";
 import Career from "./Career.tsx";
 

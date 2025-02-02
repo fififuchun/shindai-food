@@ -389,7 +389,7 @@ const List = [
     Map: "かとむら 浅間",
     Pay: [true, false, false],
     Parking: [true, true],
-    Coupon: ["学生証提示でトッピング無料", ""],
+    Coupon: ["なし", ""],
   },
   {
     Name: "すき家松本沢村",
