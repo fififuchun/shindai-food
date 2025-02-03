@@ -124,6 +124,7 @@ const Library: React.FC = () => {
           <div className="md:w-1/2 max-w-[450px] justify-center bg-slate-200">
             <img src={sample_lib} alt="サンプル画像" className="mt-5" />
 
+            {/* ここから */}
             <div
               // ref={containerRef} // 親要素のリサイズを検知するためのref
               style={{
@@ -146,22 +147,9 @@ const Library: React.FC = () => {
                   height: "220px",
                   transformOrigin: "top left",
                 }}
-                // onLoad={handleLoad} // 読み込み中テキストの表示用関数
               />
-              {/* 以下は読み込み中を表示するためのコード、ただ読み込みが結構早いので必要ないかもしれません */}
-              {/* {loading && (
-                <div
-                  style={{
-                    color: "black",
-                    fontSize: "1.5rem",
-                    fontWeight: "bold",
-                    margin: "10 0 auto 0",
-                  }}
-                >
-                  混雑状況を読み込み中...
-                </div>
-              )} */}
             </div>
+            {/* ここまで */}
 
             {/* <p>{scale}</p> */}
 
