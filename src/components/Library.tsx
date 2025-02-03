@@ -1,5 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
-import React, { useEffect, useState, useRef } from "react";
+// import React, { useEffect, useState, useRef } from "react";
 import Data_matsumoto from "@/json/calendar_matsumoto.json";
 
 import sample_lib from "@/assets/lib/sample_library.webp";
@@ -76,36 +76,36 @@ const Library: React.FC = () => {
   ];
 
   // 読み込み中かを判別
-  const [loading, setLoading] = useState(true);
-  // iframe の onLoad で読み込み完了を検知
-  const handleLoad = () => {
-    setLoading(false);
-  };
+  // const [loading, setLoading] = useState(true);
+  // // iframe の onLoad で読み込み完了を検知
+  // const handleLoad = () => {
+  //   setLoading(false);
+  // };
 
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
+  // const containerRef = useRef<HTMLDivElement>(null);
+  // const [scale, setScale] = useState(1);
 
-  useEffect(() => {
-    const updateScale = () => {
-      if (containerRef.current) {
-        const parentWidth = containerRef.current.offsetWidth;
-        setScale(parentWidth / 450); // 450は固定サイズ
-      }
-    };
+  // useEffect(() => {
+  //   const updateScale = () => {
+  //     if (containerRef.current) {
+  //       const parentWidth = containerRef.current.offsetWidth;
+  //       setScale(parentWidth / 450); // 450は固定サイズ
+  //     }
+  //   };
 
-    // 初回実行
-    updateScale();
+  //   // 初回実行
+  //   updateScale();
 
-    // ResizeObserverで親要素のリサイズを監視
-    const resizeObserver = new ResizeObserver(updateScale);
-    if (containerRef.current) {
-      resizeObserver.observe(containerRef.current);
-    }
+  //   // ResizeObserverで親要素のリサイズを監視
+  //   const resizeObserver = new ResizeObserver(updateScale);
+  //   if (containerRef.current) {
+  //     resizeObserver.observe(containerRef.current);
+  //   }
 
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, []);
+  //   return () => {
+  //     resizeObserver.disconnect();
+  //   };
+  // }, []);
 
   return (
     <>
@@ -125,7 +125,7 @@ const Library: React.FC = () => {
             <img src={sample_lib} alt="サンプル画像" className="mt-5" />
 
             <div
-              ref={containerRef}
+              // ref={containerRef} // 親要素のリサイズを検知するためのref
               style={{
                 position: "relative",
                 width: "100%",
@@ -138,14 +138,18 @@ const Library: React.FC = () => {
                 src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTslqizbdpWZRdB-tfxJdwsupzJYUk36kPvRySnqH8rSRER5Jc99x1bH0AuhmTBmuGBgQ9IqmIoBxlP/pubhtml?gid=1208272682&amp;single=true&amp;widget=true&amp;headers=false"
                 style={{
                   position: "absolute",
-                  width: `${100 / scale}%`,
-                  height: `${100 / scale}%`,
-                  transform: `scale(${scale})`,
+                  // width: `${100 / scale}%`, // iframeの大きさを親要素の規定幅の逆数倍することで拡大
+                  // height: `${100 / scale}%`, // 上と同様
+                  // transform: `scale(${scale})`, // scaleを設定
+
+                  width: "100%",
+                  height: "220px",
                   transformOrigin: "top left",
                 }}
-                onLoad={handleLoad}
+                // onLoad={handleLoad} // 読み込み中テキストの表示用関数
               />
-              {loading && (
+              {/* 以下は読み込み中を表示するためのコード、ただ読み込みが結構早いので必要ないかもしれません */}
+              {/* {loading && (
                 <div
                   style={{
                     color: "black",
@@ -156,7 +160,7 @@ const Library: React.FC = () => {
                 >
                   混雑状況を読み込み中...
                 </div>
-              )}
+              )} */}
             </div>
 
             {/* <p>{scale}</p> */}
